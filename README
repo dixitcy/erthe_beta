@@ -1,0 +1,4 @@
+data folder contains mongodb collections
+Main web application in app.js
+Main angularjs stuff in controller.js
+Packages.json contains the nmp (node package manager) config files for installing dependencies etc.
