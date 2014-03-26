@@ -1,0 +1,10 @@
+data folder contains mongodb collections
+Main web application in app.js
+Main angularjs stuff in controller.js
+Packages.json contains the nmp (node package manager) config files for installing dependencies etc.
+install nodejs. run npm and install express globally (npm install -g express).
+install mongodb and run 
+mkdir /pathto/cloned_repository/data [make a directory data]
+mongod --dbpath path/to/cloned_repository/data
+node app.js [fire up our web server using node]
+And the site should run locally, Will take down the code after you've pulled, some major major changes need to be reworked

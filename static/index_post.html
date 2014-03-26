@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html ng-app="msgboardApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    
+   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHmKT7b3WxVoXCtUJ8mfBk4NxeGrtWl7c&sensor=false">
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src='map.js'>
+
+
+    </script>
+    <script src="lib/js/angular.js"></script>
+    <script src="js/controllers.js"></script>
+    
+    <title>GEO_TEST APP</title>
+    <link href="lib/css/bootstrap.css" rel="stylesheet">
+
+    <style>
+      
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #googleMap { height: 50% }
+
+      .msg {
+        border-style: solid;
+        border-radius: 10px;
+        border-width: 1px;
+        font-size: 25px;
+      }
+    
+
+      #submit {
+        margin: 10px 0px;
+      }
+    </style>
+  
+  </head>
+
+  <body   ng-controller="MsgListCtrl">
+    <!-- Header bar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">LUG Message Board</a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+            <!-- Add your own pages here! -->
+          </ul>
+        </div>
+      </div>
+
+    </nav>
+
+
+
+    <div class="container">
+
+      <!-- Sample of what you are typing -->
+      <div class="col-lg-6 col-lg-offset-3 well">
+        {{ currMsg }}
+      </div>
+
+      <!-- Text area to send -->
+      <div class="col-lg-6 col-lg-offset-3">
+        <textarea ng-model="currMsg" class="form-control" rows="3"></textarea>
+        <button ng-click="sendMsg()" type="button" class="btn btn-primary pull-right" id="submit" >Submit</button>
+      </div>
+       
+
+      < <!-- Render messages retrieved from server with a simple template -->
+      <ul class="list-unstyled" style="margin-top: 2px">
+        <li ng-repeat="msg in msgs" class="col-lg-9 col-lg-offset-1 ">
+          <h6>{{msg.date}}</h6>
+          <p><strong><em>{{msg.msg}}</p></strong></em>
+          <h5><small> {{msg.likes}} likes</small></h5>
+          <button ng-click="likeMsg(msg)" type="button" class="btn pull-right">Like</button>
+        </li>
+
+      </ul>
+
+    </div>
+  
+
+     <table >
+    <thead>
+      <tr><th colspan="4">Location Hierarchies</th></tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="place in driversList">
+        <td ng-click="sendMsg(place)" ng-model='myplace'>
+          {{place}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+   
+
+    <div id="googleMap"/>
+    
+   
+    
+  </body>
+</html> 
