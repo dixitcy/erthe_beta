@@ -1,1 +1,9 @@
+assuming you have downloaded and installed nodejs and mongodb on your local machine,
+execute the following.
 
+1. clone the remote repo [git clone git@github.com:dixitcy/erthe_beta.git]
+2. [cd erthe_beta]
+3. Install dependencies using npm [npm install -d]
+4. Start the mongodb databse [mongod --dbpath /path-to/erthe_beta/data]
+5. Run the application from erthe_beta directory [node app.js]
+6. open locally hosted site(hosted on port 5000) in a browser [localhost:5000]
