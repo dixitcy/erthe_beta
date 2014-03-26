@@ -186,7 +186,7 @@ angular.module('msgboardApp', ['igTruncate'])
 	//////Method for asynchronously updating likes ////////////
 	$scope.likeMsg = function(likey,msg){
 
-		console.log(likey,msg._id);
+		console.log("likey " + msg._id);
 		
 		payload = {
 			myid: msg._id,
