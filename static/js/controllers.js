@@ -201,10 +201,7 @@ angular.module('msgboardApp', ['igTruncate'])
 		});
 	}
 	///////////////////////////////////////////////////////////////
-	function get_hype(lat,long){
-		
-
-	};
+	
 	
 
   	// create a map in the "map" div, set the view to a given place and zoom
