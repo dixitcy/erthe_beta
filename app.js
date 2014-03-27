@@ -26,7 +26,6 @@ var app = express();
 // all environments
 app.set('port', process.env.PORT || 5000);
 app.set('views', path.join(__dirname, 'static'));
-app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -35,8 +34,8 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'static')));
 app.set("view options", {layout: false});
-
-  app.engine('html', require('ejs').renderFile);
+app.engine('html', require('ejs').renderFile);
+//app.set('view engine', 'jade');
 
 // development only
 if ('development' == app.get('env')) {
