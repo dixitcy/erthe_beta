@@ -1,0 +1,35 @@
+		<div ng-repeat="msg in msgs | filter:criteria" style="margin-top:0px">
+			<div class="myclass" >
+				
+					<h6>
+						{{msg.date}} , {{msg.country}} , {{msg.state}} , {{msg.city}}
+					</h6>
+
+					<div ng-switch on="!!msg.url">
+						<p ng-switch-when="false" style="ellipses:true">
+							{{msg.msg|truncate:show_more(1,msg.msg)}}
+							<a ng-if="msg.msg.length > 100" href="/posts/{{$index}}"  style="color:#B2D40A;text-decoration:none">more</a>
+						</p>
+						<p ng-switch-when="true">
+							 <a href={{msg.url}} style="color:#B2D40A;text-decoration:none">{{msg.msg}}</a>
+						</p>
+					</div>
+
+					<div style="display:inline">
+						<h5 style="display:inline">
+							<i  class="glyphicon glyphicon-heart"></i> 
+							&nbsp;{{msg.likes}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 					</h5>
+
+						
+	 					<h4 style="display:inline">
+		 					<a href="" class="fa fa-chevron-up" ng-click="likeMsg(1,msg)" style="text-decoration:none;color:#66CC9A"></a>
+		 					&nbsp;
+		 					<a href="" class="fa fa-chevron-down" ng-click="likeMsg(2,msg)" style="text-decoration:none;color:#FF5D38"></a>
+		 				</h4>
+
+					</div>
+				
+				
+			</div>
+		</div>

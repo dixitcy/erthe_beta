@@ -7,19 +7,22 @@
 		
 	 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
-		<script src="lib/js/angular.js"></script>
-		<script src="js/services.js"></script>>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+		<script src="lib/js/angular-route.min.js"></script>
 		<script src="js/controllers.js"></script>
+
+
+		
 		<!--<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+		<script src="lib/js/angular.min.js"></script>
 		<script src="http://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script> 
 		<link href="lib/css/bootstrap.css" rel="stylesheet">
 		-->
 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
-		
+
 		<link rel="stylesheet"href="//fonts.googleapis.com/css?family=Roboto:light,regular,medium,thin,italic,mediumitalic,bold" title="roboto">
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-
 
 
 		<strong><title>erthe</title></strong>
@@ -180,40 +183,8 @@
 		<hr style="margin-left:350px;margin-right:350px;margin-top:10px;margin-bottom:20px" />
 	
 		<!--******************** rendering msgs from mongodb ********************-->
-		<div ng-repeat="msg in msgs | filter:criteria" style="margin-top:0px">
-			<div class="myclass" >
-				
-					<h6>
-						{{msg.date}} , {{msg.country}} , {{msg.state}} , {{msg.city}}
-					</h6>
-
-					<div ng-switch on="!!msg.url">
-						<p ng-switch-when="false" style="ellipses:true">
-							{{msg.msg}}
-						</p>
-						<p ng-switch-when="true">
-							 <a href={{msg.url}} style="color:#B2D40A;text-decoration:none">{{msg.msg}}</a>
-						</p>
-					</div>
-
-					<div style="display:inline">
-						<h5 style="display:inline">
-							<i  class="glyphicon glyphicon-heart"></i> 
-							&nbsp;{{msg.likes}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-	 					</h5>
-						
-	 					<h4 style="display:inline">
-		 					<a href="" class="fa fa-chevron-up" ng-click="likeMsg(1,msg)" style="text-decoration:none;color:#66CC9A"></a>
-		 					&nbsp;
-		 					<a href="" class="fa fa-chevron-down" ng-click="likeMsg(2,msg)" style="text-decoration:none;color:#FF5D38"></a>
-		 				</h4>
-
-					</div>
-				
-				
-			</div>
-		</div>	
+		<div ng-view></div>
+	
 	
 	</body>
 </html> 

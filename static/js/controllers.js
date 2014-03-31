@@ -6,7 +6,8 @@
 
 var lati;
 var longi;
-angular.module('msgboardApp', ['igTruncate'])
+var post_length;
+angular.module('msgboardApp', ['ngRoute','igTruncate'])
 
 
 
@@ -24,6 +25,7 @@ angular.module('msgboardApp', ['igTruncate'])
 
 
 .controller('MsgListCtrl',[ '$scope','$http','$window','locationAPI', function ($scope, $http, $window, locationAPI){
+	
 	$scope.placesList = [];
 	$scope.myplacesList = [];
 	$scope.myplaceHierarchy = [];
@@ -322,10 +324,69 @@ angular.module('msgboardApp', ['igTruncate'])
 		set_markpermission = true;
 	}
 	
+	$scope.show_more = function(bool,msg){
+		console.log(msg + "at show_more function");
+	if (bool=== 1) {
+		if (msg.length <= 100) {
+			return msg.length;
+		} else{
+			return 100;
+		};
 
+	} else{
+		return msg.length;
+	};	
+	}
 
+	$scope.show_all = function(msg){
+		console.log(msg.length + " at show_all function");
+		
+		return msg.length;
+	}
 
-}]);
+}])
+
+.controller('BookController', function ($scope, $routeParams) {
+	$scope.name = "BookController";
+	$scope.post = $scope.msgs[$routeParams.index];
+})
+
+.config(function ($routeProvider,$locationProvider){
+	$routeProvider
+		.when('/',{
+			templateUrl:'/view_posts.html'
+		})
+		.when('/posts/:index',{
+			templateUrl:'/post.html',
+			controller: 'BookController',
+			 
+		})
+
+	$locationProvider.html5Mode(true);
+})
+	
+ angular.module('igTruncate', []).filter('truncate', function (){
+  return function (text, length, end){
+    if (text != undefined){
+      if (isNaN(length)){
+      	post_length = 20;
+        length = post_length;
+      }
+
+      if (end === undefined){
+        end = "... ";
+      }
+      
+      if (text.length <= length || text.length - end.length <= length){
+        return text;
+      }else{
+        return String(text).substring(0, length - end.length) + end ;
+      }
+    }
+  };
+});
+
+//Paging stuff I think
 ListController = function($scope, itemService) {
     var pagesShown = 1;
     var pageSize = 5;
@@ -340,25 +401,3 @@ ListController = function($scope, itemService) {
         pagesShown = pagesShown + 1;         
     };
 };
-
-	
- angular.module('igTruncate', []).filter('truncate', function (){
-  return function (text, length, end){
-    if (text != undefined){
-      if (isNaN(length)){
-        length = 20;
-      }
-
-      if (end === undefined){
-        end = "... ";
-      }
-      console.log("Text length is "+ text.length );
-      if (text.length <= length || text.length - end.length <= length){
-        return text;
-      }else{
-        return String(text).substring(0, length - end.length) + end ;
-      }
-    }
-  };
-});
-

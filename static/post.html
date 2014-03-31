@@ -1,0 +1,36 @@
+
+
+<div class="myclass" >
+				
+					<h6>
+						{{post.date}} , {{post.country}} , {{post.state}} , {{post.city}}
+					</h6>
+
+					<div >
+						<p  style="ellipses:true">
+							{{post.msg}}
+							
+						</p>
+											</div>
+
+					<div style="display:inline">
+						<h5 style="display:inline">
+							<i  class="glyphicon glyphicon-heart"></i> 
+							&nbsp;{{post.likes}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 					</h5>
+
+						
+	 					<h4 style="display:inline">
+		 					<a href="" class="fa fa-chevron-up" ng-click="likeMsg(1,post)" style="text-decoration:none;color:#66CC9A"></a>
+		 					&nbsp;
+		 					<a href="" class="fa fa-chevron-down" ng-click="likeMsg(2,post)" style="text-decoration:none;color:#FF5D38"></a>
+		 				</h4>
+
+					</div>
+				
+				
+			</div>
+
+
+
+	
