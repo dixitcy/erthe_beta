@@ -86,7 +86,7 @@
 						<li style="clickable:true">
 							<a ng-click="Viewposts($index)" href="" style="color: #36B43C;clickable:true;outline:none">
 						    	<strong>
-						    		{{myplace}}&nbsp;<small>({{myplaceHierarchy[$index]}})</small>
+						    		{{myplace}}&nbsp;<small ng-if="!$first">({{myplaceHierarchy[$index]}})</small>
 						    	</strong>
 							</a>
 						</li>
