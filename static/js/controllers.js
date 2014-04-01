@@ -36,10 +36,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate'])
 	getPosition();
 	
 
-  $scope.changeLength = function(wine) {
-  	console.log("coming here" + wine.length);
-    wine.length = 9999;
-}
+  
 
 
 	/////////////////// Automatic location generator function 
@@ -324,40 +321,50 @@ angular.module('msgboardApp', ['ngRoute','igTruncate'])
 		set_markpermission = true;
 	}
 	
-	$scope.show_more = function(bool,msg){
-		console.log(msg + "at show_more function");
-	if (bool=== 1) {
+	$scope.show_more = function(msg){
+		
+	
 		if (msg.length <= 100) {
 			return msg.length;
 		} else{
 			return 100;
 		};
 
-	} else{
-		return msg.length;
-	};	
+	 	
 	}
 
-	$scope.show_all = function(msg){
-		console.log(msg.length + " at show_all function");
-		
-		return msg.length;
-	}
+	
 
 }])
 
-.controller('BookController', function ($scope, $routeParams) {
+.controller('BookController', function ($scope, $routeParams, $http) {
 	$scope.name = "BookController";
 	$scope.post = $scope.msgs[$routeParams.index];
+	$scope.likeMsg = function(likey,msg){
+
+		console.log(likey+ "likey " + msg._id);
+		
+		payload = {
+			myid: msg._id,
+			likeornot: likey
+		}
+		$http.post('likeupdate',payload).success(function (){
+			if(likey === 1){
+				msg.likes += 1;
+			}else{
+				msg.likes -= 1;
+			}  
+		});
+	}
 })
 
 .config(function ($routeProvider,$locationProvider){
 	$routeProvider
 		.when('/',{
-			templateUrl:'/view_posts.html'
+			templateUrl:'/partials/view_posts.html'
 		})
 		.when('/posts/:index',{
-			templateUrl:'/post.html',
+			templateUrl:'/partials/post.html',
 			controller: 'BookController',
 			 
 		})
