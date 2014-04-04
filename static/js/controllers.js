@@ -7,7 +7,7 @@
 var lati;
 var longi;
 var post_length;
-angular.module('msgboardApp', ['ngRoute','igTruncate'])
+angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 
 
 
@@ -24,7 +24,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate'])
 })
 
 
-.controller('MsgListCtrl',[ '$scope','$http','$window','locationAPI', function ($scope, $http, $window, locationAPI){
+.controller('MsgListCtrl',[ '$scope','$http','$window','locationAPI', '$modal', function ($scope, $http, $window, locationAPI, $modal){
 	
 	$scope.placesList = [];
 	$scope.myplacesList = [];
@@ -95,52 +95,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate'])
  
  
 	////////Function called when submit button is pressed to send data///////////
-	$scope.sendMsg = function(depth,list) {
-		
-		if ($scope.msgUrl) {
-			console.log("URL success" + $scope.msgUrl);
-		} else{
-			url = "#"
-		};
-		loc = list.address.state;
-		console.log('Yoo HOO'+ loc);
-		currTime = new Date();
-		if(depth === 3){
-			mycountry = list.address.country;
-			mystate = list.address.state;
-			mycity = list.address.city;
-		}
-		else if(depth === 2){
-			mycountry = list.address.country;
-			mystate = list.address.state;
-			mycity = 'unavailable';
-		}
-		else{
-			mycountry = list.address.country;
-			mystate = 'unavailable';
-			mycity = 'unavailable';
-		}
-		
-		// Create payload from msg and add date
-		payload = {
-			date: currTime.valueOf(), // milliseconds since epoch
-			msg:  $scope.currMsg,
-			url: $scope.msgUrl,
-			likes: 0,
-			country: mycountry,
-			state: mystate,
-			city: mycity
-		}
-		// Send post request to server to insert into mongodb
-		$http.post('messages', payload).success(function() {
-			payload.date = currTime.toLocaleString();
-			// Add to current array of msgs for pseudo live update
-			$scope.msgs.unshift(payload); 
-
-		});
-		$scope.currMsg = "";
-		
-	}
+	
 	////////////////////////////////////////////////////////////
 
 	$scope.Viewposts = function(id){
@@ -333,12 +288,31 @@ angular.module('msgboardApp', ['ngRoute','igTruncate'])
 	 	
 	}
 
-	
+	  $scope.open = function () {
+  
+  console.log('placesList scope ' + $scope.placesList.address.country);
+
+    var modalInstance = $modal.open({
+      templateUrl: 'js/post_modal.html',
+      controller: 'ModalInstanceCtrl',
+      resolve: {
+        places: function () {
+          return $scope.placesList;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      console.log('Modal dismissed at: ' + new Date());
+    });
+  };
 
 }])
 
-.controller('BookController', function ($scope, $routeParams, $http) {
-	$scope.name = "BookController";
+.controller('individualPostView', function ($scope, $routeParams, $http) {
+	$scope.name = "individualPostView";
 	$scope.post = $scope.msgs[$routeParams.index];
 	$scope.likeMsg = function(likey,msg){
 
@@ -365,13 +339,85 @@ angular.module('msgboardApp', ['ngRoute','igTruncate'])
 		})
 		.when('/posts/:index',{
 			templateUrl:'/partials/post.html',
-			controller: 'BookController',
+			controller: 'individualPostView',
 			 
 		})
 
 	$locationProvider.html5Mode(true);
 })
-	
+
+.controller('ModalDemoCtrl' ,function ($scope, $modal, $log) {
+
+  $scope.items = ['item1', 'item2', 'item3'];
+
+  
+
+});
+
+// Please note that $modalInstance represents a modal window (instance) dependency.
+// It is not the same as the $modal service used above.
+
+var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places) {
+
+  $scope.placesList = places;
+  $scope.selected = {
+    
+  };
+  $scope.sendMsg = function(depth,list) {
+		console.log('Yoo HOO'+ list.address.country);
+		if ($scope.msgUrl) {
+			console.log("URL success" + $scope.msgUrl);
+		} else{
+			url = "#"
+		};
+		
+		console.log('Yoo HOO'+ $scope.currMsg);
+		currTime = new Date();
+		if(depth === 3){
+			mycountry = list.address.country;
+			mystate = list.address.state;
+			mycity = list.address.city;
+		}
+		else if(depth === 2){
+			mycountry = list.address.country;
+			mystate = list.address.state;
+			mycity = 'unavailable';
+		}
+		else{
+			mycountry = list.address.country;
+			mystate = 'unavailable';
+			mycity = 'unavailable';
+		}
+		
+		// Create payload from msg and add date
+		payload = {
+			date: currTime.valueOf(), // milliseconds since epoch
+			msg:  $scope.currMsg,
+			url: $scope.msgUrl,
+			likes: 0,
+			country: mycountry,
+			state: mystate,
+			city: mycity
+		}
+		// Send post request to server to insert into mongodb
+		$http.post('messages', payload).success(function() {
+			payload.date = currTime.toLocaleString();
+			// Add to current array of msgs for pseudo live update
+			
+
+		});
+		$scope.currMsg = "";
+		
+	}
+
+  $scope.ok = function () {
+    $modalInstance.close();
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+};	
  angular.module('igTruncate', []).filter('truncate', function (){
   return function (text, length, end){
     if (text != undefined){
@@ -391,7 +437,8 @@ angular.module('msgboardApp', ['ngRoute','igTruncate'])
       }
     }
   };
-});
+})
+
 
 //Paging stuff I think
 ListController = function($scope, itemService) {

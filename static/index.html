@@ -10,7 +10,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
 		<script src="lib/js/angular-route.min.js"></script>
 		<script src="js/controllers.js"></script>
-
+		<script src="js/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
 
 		
 		<!--<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
@@ -127,8 +127,9 @@
 						<strong>{{placesList.address.city}}</strong>
 					</a>
 				</li>
-			<button type="button" ng-click="showDetails = ! showDetails" class="btn btn-default pull-right" style="margin:10px"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
+			<button type="button" ng-click="open()" class="btn btn-default pull-right" style="margin:10px"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
 			<button type="button" ng-click="set_marker()" class="btn btn-success pull-right" style="margin:10px"><i class="fa fa-map-marker"></i> &nbsp;New hype</button>
+			
 
 
 			</ul>
@@ -145,7 +146,7 @@
 
 			<!-- Text area to send -->
 			<div class="col-lg-6 col-lg-offset-3" style="margin-bottom: 10px;font-family:Roboto" ng-show="showDetails">
-				<textarea placeholder="Post your thoughts" ng-model="currMsg" class="form-control" rows="2"></textarea>
+				<textarea placeholder="Post your thoughts" ng-model="currMsg" class="form-control" rows="20"></textarea>
 			</div>
 
 			<!-- Url link area to send -->
@@ -184,11 +185,15 @@
 	
 		<!--******************** rendering msgs from mongodb ********************-->
 		<div ng-view></div>
-	
-	
+		
+
+
+
+
 	</body>
 </html> 
 			
+	
 				
 				
 
@@ -196,7 +201,8 @@
 			
 			
 			
-		
+
+	
 
 
 							

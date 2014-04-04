@@ -7,7 +7,7 @@
 
 					<div ng-switch on="!!msg.url">
 						<p ng-switch-when="false" style="ellipses:true">
-							{{msg.msg|truncate:show_more(1,msg.msg)}}
+							{{msg.msg|truncate:show_more(msg.msg)}}
 							<a ng-if="msg.msg.length > 100" href="/posts/{{$index}}"  style="color:#B2D40A;text-decoration:none">more</a>
 						</p>
 						<p ng-switch-when="true">

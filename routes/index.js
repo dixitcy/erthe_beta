@@ -12,7 +12,7 @@ exports.index = function(req, res){
 exports.postmessage = function(msgColl){
 	return function (req, res){
 		body = req.body;
-		console.log(body);
+		console.log("posted msg body" + body.country);
 		msg  = body.msg; date = body.date;
 		country = body.country;
 		state = body.state;

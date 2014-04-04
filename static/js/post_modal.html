@@ -1,0 +1,52 @@
+  <div class="modal-body">
+            <div style="margin-bottom: 10px;font-family:Roboto">
+        <textarea placeholder="Post your thoughts" ng-model="$parent.currMsg" class="form-control" rows="20"></textarea>
+      </div>
+
+      <!-- Url link area to send -->
+      <div  style="margin-bottom: 10px">
+         <input placeholder="Share a link" type="url" name="bday" class="form-control" ng-model="$parent.msgUrl">
+      </div>
+            
+        <ul class="nav nav-pills nav" style="font-size:15px" >
+        <li style="clickable:true">
+          <a ng-click="sendMsg(1,placesList)" href="#" style="color:#e74c3c" >
+            <strong>{{placesList.address.country}} </strong>
+          </a>
+        </li>
+
+        <li ng-if="placesList.address.state">
+          <a ng-click="sendMsg(2,placesList)" href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.state}}</strong>
+          </a>
+        </li>
+        <li ng-if="placesList.address.state_district">
+          <a ng-click="sendMsg(3,placesList)"  href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.state_district}}</strong>
+          </a>
+        </li>
+        <li ng-if="placesList.address.county" >
+          <a ng-click="sendMsg(3,placesList)"  href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.county}}</strong>
+          </a>
+        </li>
+        <li ng-if="placesList.address.city">
+          <a ng-click="sendMsg(3,placesList)"  href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.city}}</strong>
+          </a>
+        </li>
+        <li ng-if="placesList.address.suburb">
+          <a ng-click="sendMsg(3,placesList)"  href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.suburb}}</strong>
+          </a>
+        </li>
+        <li ng-if="placesList.address.road">
+          <a ng-click="sendMsg(3,placesList)"  href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.road}}</strong>
+          </a>
+        </li>
+
+
+      </ul>
+
+        </div>
