@@ -43,7 +43,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	function getPosition(){
 		navigator.geolocation.getCurrentPosition(success, fail,{
 				enableHighAccuracy:true,
-				timeout:10000,
+				timeout:100000,
 				maximumAge:Infinity
 		});    
 	}   
@@ -302,11 +302,17 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
       }
     });
 
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
+    modalInstance.result.then(function (mysuccess) {
+    
+     if (mysuccess === 1) {console.log("in success");$scope.showsuccessAlert=true;} else{console.log("in failure");$scope.showfailureAlert=true;};
+      
     }, function () {
       console.log('Modal dismissed at: ' + new Date());
     });
+  };
+
+    $scope.closeAlert = function() {
+    $scope.showAlert = false;
   };
 
 }])
@@ -365,6 +371,7 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places) {
   };
   $scope.sendMsg = function(depth,list) {
 		console.log('Yoo HOO'+ list.address.country);
+		var mysuccess = 0;
 		if ($scope.msgUrl) {
 			console.log("URL success" + $scope.msgUrl);
 		} else{
@@ -403,10 +410,15 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places) {
 		$http.post('messages', payload).success(function() {
 			payload.date = currTime.toLocaleString();
 			// Add to current array of msgs for pseudo live update
-			
-
-		});
+			mysuccess = 1;
+			console.log("result " + mysuccess)
+			$modalInstance.close(1);
+		}).error(function(){
+			$modalInstance.close(0)
+		})
 		$scope.currMsg = "";
+		
+		
 		
 	}
 

@@ -134,6 +134,14 @@
 
 			</ul>
 		</div>
+		<div ng-show="showsuccessAlert" class="alert alert-success alert-dismissable col-lg-6 col-lg-offset-3">
+			<button type="button" class="close" ng-click="showsuccessAlert = !showsuccessAlert" data-dismiss="alert">&times;</button>
+			<strong>Posted!</strong> Check if your post gains traction.
+		</div>
+		<div ng-show="showfailureAlert" class="alert alert-danger alert-dismissable col-lg-6 col-lg-offset-3">
+			<button type="button" class="close" ng-click="showfailureAlert = !showfailureAlert" data-dismiss="alert">&times;</button>
+			<strong>couldn't post!</strong> The gods are not in your favor.
+		</div>
 
 		<!-- *********************Post stuff on show ****************-->
 		<div class="container">

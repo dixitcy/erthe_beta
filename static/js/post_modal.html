@@ -2,7 +2,7 @@
             <div style="margin-bottom: 10px;font-family:Roboto">
         <textarea placeholder="Post your thoughts" ng-model="$parent.currMsg" class="form-control" rows="20"></textarea>
       </div>
-
+      <div ng-show="showAlert" class="alert alert-success col-lg-6 col-lg-offset-3" close="closeAlert()">posted</div>
       <!-- Url link area to send -->
       <div  style="margin-bottom: 10px">
          <input placeholder="Share a link" type="url" name="bday" class="form-control" ng-model="$parent.msgUrl">
