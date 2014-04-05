@@ -8,7 +8,7 @@
          <input placeholder="Share a link" type="url" name="bday" class="form-control" ng-model="$parent.msgUrl">
       </div>
             
-        <ul class="nav nav-pills nav" style="font-size:15px" >
+        <ul class="nav nav-pills nav" style="font-size:15px" ng-if="placesList.address">
         <li style="clickable:true">
           <a ng-click="sendMsg(1,placesList)" href="#" style="color:#e74c3c" >
             <strong>{{placesList.address.country}} </strong>

@@ -31,18 +31,18 @@
 			#map { margin-top: 65px; height: 50%; }
 
 			html { height: 100% }
-			body { height: 100%; margin: 0; padding: 0; background: #34495e; }
+			body { height: 100%; margin: 0; padding: 0; background: #ecf0f1; }
 			
 			.myclass{
 
 				font-size: 25px;
 				font-family: Roboto,sans-serif;
-			    color: #fff;
+			    color: #000;
 			    padding-bottom: 100px;
 			  	padding-left:70px; 
 			  	padding-right: 10px;
 			    width: 100%;
-			    background: #34495e;
+			    background: #ecf0f1;
 			    text-rendering: optimizelegibility;
 				
 
@@ -93,7 +93,7 @@
 
 					</ul>
 
-					<button type="button" ng-click="hideMap = !hideMap" ng-switch on="!hideMap" class="btn btn-danger pull-right" style="margin-top:10px;margin-right:10px"><i  ng-switch-when="true" class="fa fa-minus-square"></i><i  ng-switch-when="false" class="fa fa-plus-square"></i> </button>
+					<button type="button" ng-click="hideMap = !hideMap" ng-switch on="!hideMap" class="btn btn-default pull-right" style="margin-top:10px;margin-right:10px"><i  ng-switch-when="true" class="fa fa-minus-square"></i><i  ng-switch-when="false" class="fa fa-plus-square"></i> </button>
 
 				</div>
 				
@@ -110,25 +110,9 @@
 
 		<div style="display:inline">
 			<ul class="nav nav-pills nav" style="font-size:15px" >
-				<li style="clickable:true">
-					<a ng-click="sendMsg(1,placesList)" href="#" style="color:#36B43C" >
-						<strong>{{placesList.address.country}} </strong>
-					</a>
-				</li>
-
-				<li>
-					<a ng-click="sendMsg(2,placesList)" href="#" style="color:#36B43C">
-						<strong>{{placesList.address.state}}</strong>
-					</a>
-				</li>
 				
-				<li>
-					<a ng-click="sendMsg(3,placesList)" href="#" style="color:#36B43C">
-						<strong>{{placesList.address.city}}</strong>
-					</a>
-				</li>
-			<button type="button" ng-click="open()" class="btn btn-default pull-right" style="margin:10px"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
-			<button type="button" ng-click="set_marker()" class="btn btn-success pull-right" style="margin:10px"><i class="fa fa-map-marker"></i> &nbsp;New hype</button>
+			<button type="button" ng-click="open()" class="btn btn-danger pull-right" style="margin:10px"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
+			
 			
 
 
@@ -189,7 +173,7 @@
 				
 		</div>
 		
-		<hr style="margin-left:350px;margin-right:350px;margin-top:10px;margin-bottom:20px" />
+		<hr style="margin-left:350px;margin-right:350px;margin-top:10px;margin-bottom:10px" />
 	
 		<!--******************** rendering msgs from mongodb ********************-->
 		<div ng-view></div>
