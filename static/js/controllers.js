@@ -29,7 +29,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	$scope.placesList = [];
 	$scope.myplacesList = [];
 	$scope.myplaceHierarchy = [];
-	$scope.current_place = "Erthe";
+	$scope.current_place = "erthe";
 	$scope.numLimit = 2;
 
 	var set_markpermission;
@@ -59,7 +59,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			str = btr.split(", ");
 			
 			$scope.placesList = response;
-			$scope.myplacesList.push('Erthe');
+			$scope.myplacesList.push('erthe');
 			$scope.myplaceHierarchy.push('');
 			$scope.myplacesList.push(response.address.country);
 			$scope.myplaceHierarchy.push('country');
@@ -169,8 +169,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
   
 	// add an OpenStreetMap tile layer
 	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-		 maxZoom: 18,
-		 minZoom: 2
+		 
 	}).addTo(map);
 
 
@@ -192,7 +191,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		 locationAPI.getPlaces().success(function(response){
 		 	$scope.myplacesList = [];
 			$scope.myplaceHierarchy = [];
-		 	$scope.myplacesList.push('Erthe');
+		 	$scope.myplacesList.push('erthe');
 			$scope.myplaceHierarchy.push('');
 			console.log(Object.keys(response.address));
 			if(response.address.country){
