@@ -1,8 +1,9 @@
 		<div ng-repeat="msg in msgs | filter:criteria" style="margin-top:0px">
 			<div class="myclass" >
 				
-					<h6>
-						{{msg.date}} , {{msg.country}} , {{msg.state}} , {{msg.city}}
+					<h6 style="display:inline-block">
+						  <span>{{msg.country}}</span>  <span ng-if="msg.state != 'unavailable'">.&nbsp;{{msg.state}}</span>  <span ng-if="msg.county">.&nbsp;{{msg.county}}</span><span ng-if="msg.suburb">.&nbsp;{{msg.suburb}}</span> <span ng-if="msg.city != 'unavailable'">.&nbsp;{{msg.city}}</span>  <span ng-if="msg.road != 'unavailable'">{{msg.road}}.&nbsp;</span> &nbsp;&nbsp; <span  class="pull-right">{{msg.date}} </span>
+						
 					</h6>
 
 					<div ng-switch on="!!msg.url">
@@ -26,7 +27,9 @@
 		 					<a href="" class="fa fa-chevron-up" ng-click="likeMsg(1,msg)" style="text-decoration:none;color:#66CC9A"></a>
 		 					&nbsp;
 		 					<a href="" class="fa fa-chevron-down" ng-click="likeMsg(2,msg)" style="text-decoration:none;color:#FF5D38"></a>
+
 		 				</h4>
+					
 
 					</div>
 				
