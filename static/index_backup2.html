@@ -3,161 +3,125 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHmKT7b3WxVoXCtUJ8mfBk4NxeGrtWl7c&sensor=false"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src='map.js'></script>
-    <script src="lib/js/angular.js"></script>
-    <script src="js/controllers.js"></script>
-    
-    <title>ZEITGEIST</title>
-    <link href="lib/css/bootstrap.css" rel="stylesheet">
-    <link href="custom_style.css" rel="stylesheet">
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="lib/js/angular-route.min.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <link rel="stylesheet"href="//fonts.googleapis.com/css?family=Roboto:light,regular,medium,thin,italic,mediumitalic,bold" title="roboto">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <strong><title>erthe</title></strong>
 
     <style>
       
-      .tabl{
-        display: inline;
-      }
+      #map { margin-top: 65px;margin-left: 15px; height: 200px; width: 800px; b }
 
       html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      #googleMap { height: 50% }
-
-      .msg {
-        border-style: solid;
-        border-radius: 10px;  
-        border-width: 1px;
+      body { height: 100%; margin: 0; padding: 0; background: #ecf0f1; }
+      
+      .myclass{
         font-size: 25px;
+        font-family: Roboto,sans-serif;
+          color: #000;
+          padding-bottom: 50px;
+          padding-left:70px; 
+          padding-right: 10px;
+          width: 100%;
+          background: #ecf0f1;
+          text-rendering: optimizelegibility;
+      }
+          
+      .myclass2{
+        font-size: 40px;
+        text-align: center;
+        font-family: Roboto,sans-serif;
+          color: #000;
+          
+          width: 100%;
+          margin-left: -10px;
+          text-rendering: optimizelegibility;
       }
 
-      #submit {
-        margin: 10px 0px;
-      }
     </style>
   
   </head>
 
   <body   ng-controller="MsgListCtrl">
-    <!-- Header bar -->
+
+    <!-- ********************Header bar******************** -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
+
+      <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">Share your awesomeness bros</a>
+          <a class="navbar-brand" href="index.html" style="color:#fff;font-family:Roboto;font-size:25px">erthe</a>
         </div>
 
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav">
-            <!-- Add your own pages here! -->
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" ng-model="criteria" class="form-control" placeholder="Filter posts">
+              </div>
+          </form>
+              
+          <ul class="nav nav-pills" style="margin-top:5px;display:inline-block"  ng-repeat="myplace in myplacesList">
+          <!--<ul class="nav nav-pills nav pull-right" style="margin-top:5px"  ng-repeat="myplace in myplacesList">-->
+            <li style="clickable:true">
+              <a ng-click="Viewposts($index)" href="" style="color: #36B43C;clickable:true;outline:none">
+                  <strong>
+                    {{myplace}}&nbsp;<small ng-if="!$first">({{myplaceHierarchy[$index]}})</small>
+                  </strong>
+              </a>
+            </li>
+
           </ul>
+
+          
+          <button type="button" ng-click="open()" class="btn btn-danger pull-right" style="margin:10px"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
+
         </div>
-      </div>
+        
+      </di v>
 
     </nav>
+    <!-- ********************Header bar******************** -->
 
+     <div id="map" ng-show="!hideMap"></div>
 
-
-    <div class="container" style="margin-top:50px">
-
-      
-      <h1 class="col-lg-offset-1" style="color:#D43925"><strong><em> Posts from bros </em></strong></h1>
+    <div style="display:inline">
+      <ul class="nav nav-pills nav" style="font-size:15px" >
         
-       <!-- Render messages retrieved from server with a simple template -->
-      <ul class="list-unstyled" style="margin-top: 2px">
-        <li ng-repeat="msg in msgs" class="col-lg-9 col-lg-offset-1 well well-sm">
-          <h6>
-            {{msg.date}}
-          </h6>
-          <p>
-            <strong>
-              <em>
-                {{msg.msg}}
-              </em>
-            </strong>
-          </p>
-          <h5>
-            <small>
-              <em>
-                <i class="glyphicon glyphicon-heart"></i> 
-                &nbsp;{{msg.likes}}
-               </em>
-            </small>
-          </h5>
-          <button ng-click="likeMsg(msg)" type="button" class="btn btn-mini pull-right"><i class="glyphicon glyphicon-thumbs-up"></i> 
-          </button>
-        </li>
       </ul>
+    </div>
+    <div ng-show="showsuccessAlert" class="alert alert-success alert-dismissable col-lg-6 col-lg-offset-3">
+      <button type="button" class="close" ng-click="showsuccessAlert = !showsuccessAlert" data-dismiss="alert">&times;</button>
+      <strong>Posted!</strong> Check if your post gains traction.
+    </div>
+    <div ng-show="showfailureAlert" class="alert alert-danger alert-dismissable col-lg-6 col-lg-offset-3">
+      <button type="button" class="close" ng-click="showfailureAlert = !showfailureAlert" data-dismiss="alert">&times;</button>
+      <strong>couldn't post!</strong> The gods are not in your favor.
+    </div>
+
+    <!-- *********************current place ****************-->
+    
+
+      <p class="col-lg-3 myclass2" style="color:#36B43C">{{current_place}}</p>
+
+    
+    
+    
+  
+    <!--******************** rendering msgs from mongodb ********************-->
+    <div ng-view></div>
       
-      <!-- Sample of what you are typing -->
-      <div class="col-lg-6 col-lg-offset-3 well">
-        {{ currMsg }}
-      </div>
-
-      <!-- Text area to send -->
-      <div class="col-lg-6 col-lg-offset-3" style="margin-bottom: 20px">
-        <textarea ng-model="currMsg" class="form-control" rows="6"></textarea>
-      </div>
-
-    </div>
-    
-    <div class="lead">
-      <em>
-         &nbsp;&nbsp;Share your awesomeness bros 
-       </em>
-    </div>
-
- <ul class="nav nav-pills nav">
-  <li style="clickable:true">
-    <a ng-click="Viewposts(1,placesList.address.country)" href="#" style="color: #C6AC00">
-      {{placesList.address.country}} 
-    </a>
-  </li>
-
-  <li>
-    <a ng-click="Viewposts(2,placesList.address.state)" href="#" style="color: #CA7300">
-      {{placesList.address.state}}
-    </a>
-  </li>
-  
-  <li>
-    <a ng-click="Viewposts(3,placesList.address.city)" href="#" style="color: #CE3700">
-      {{placesList.address.city}}
-    </a>
-  </li>
-  
-</ul>
-
-
-
- <ul class="nav nav-pills nav">
-  <li style="clickable:true">
-    <a ng-click="sendMsg(1,placesList)" href="#">
-      {{placesList.address.country}} 
-    </a>
-  </li>
-
-  <li>
-    <a ng-click="sendMsg(2,placesList)" href="#">
-      {{placesList.address.state}}
-    </a>
-  </li>
-  
-  <li>
-    <a ng-click="sendMsg(3,placesList)" href="#">
-      {{placesList.address.city}}
-    </a>
-  </li>
-  
-</ul>
-  
-    
-    
-    
-
-  <div id="googleMap"/>
-    
-   
-    
+        
   </body>
 </html> 

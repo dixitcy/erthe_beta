@@ -4,57 +4,48 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
-		
-	 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
 		<script src="lib/js/angular-route.min.js"></script>
 		<script src="js/controllers.js"></script>
 		<script src="js/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
+		<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 
-		
-		<!--<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
-		<script src="lib/js/angular.min.js"></script>
-		<script src="http://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script> 
-		<link href="lib/css/bootstrap.css" rel="stylesheet">
-		-->
+
 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
-
 		<link rel="stylesheet"href="//fonts.googleapis.com/css?family=Roboto:light,regular,medium,thin,italic,mediumitalic,bold" title="roboto">
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 
-
 		<strong><title>erthe</title></strong>
+
 		<style>
 			
-			#map { margin-top: 65px; height: 50%; }
+			#map { margin-top: 65px;margin-left: 15px; height: 200px; width: 1000px; b }
 
 			html { height: 100% }
 			body { height: 100%; margin: 0; padding: 0; background: #ecf0f1; }
 			
 			.myclass{
-
 				font-size: 25px;
 				font-family: Roboto,sans-serif;
 			    color: #000;
-			    padding-bottom: 100px;
+			    padding-bottom: 50px;
 			  	padding-left:70px; 
 			  	padding-right: 10px;
 			    width: 100%;
 			    background: #ecf0f1;
 			    text-rendering: optimizelegibility;
-				
-
 			}
 			    
 			.myclass2{
-
 				font-size: 40px;
 				text-align: center;
 				font-family: Roboto,sans-serif;
 			    color: #000;
-			    padding: 10px 10px;
+			    
 			    width: 100%;
 			    margin-left: -10px;
 			    text-rendering: optimizelegibility;
@@ -93,29 +84,21 @@
 
 					</ul>
 
-					<button type="button" ng-click="hideMap = !hideMap" ng-switch on="!hideMap" class="btn btn-default pull-right" style="margin-top:10px;margin-right:10px"><i  ng-switch-when="true" class="fa fa-minus-square"></i><i  ng-switch-when="false" class="fa fa-plus-square"></i> </button>
+				
+					<button type="button" ng-click="open()" class="btn btn-danger pull-right" style="margin:10px"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
 
 				</div>
 				
-					
-				
 			</div>
 
-					
-
-
 		</nav>
+		<!-- ********************Header bar******************** -->
 
 		 <div id="map" ng-show="!hideMap"></div>
 
 		<div style="display:inline">
 			<ul class="nav nav-pills nav" style="font-size:15px" >
 				
-			<button type="button" ng-click="open()" class="btn btn-danger pull-right" style="margin:10px"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
-			
-			
-
-
 			</ul>
 		</div>
 		<div ng-show="showsuccessAlert" class="alert alert-success alert-dismissable col-lg-6 col-lg-offset-3">
@@ -127,82 +110,18 @@
 			<strong>couldn't post!</strong> The gods are not in your favor.
 		</div>
 
-		<!-- *********************Post stuff on show ****************-->
-		<div class="container">
+		<!-- *********************current place ****************-->
+		
 
 			<p class="col-lg-3 myclass2" style="color:#36B43C">{{current_place}}</p>
 
-			<div class="col-lg-6 col-lg-offset-3" style="margin-bottom: 10px" >
-		 		
-			</div>
-
-			<!-- Text area to send -->
-			<div class="col-lg-6 col-lg-offset-3" style="margin-bottom: 10px;font-family:Roboto" ng-show="showDetails">
-				<textarea placeholder="Post your thoughts" ng-model="currMsg" class="form-control" rows="20"></textarea>
-			</div>
-
-			<!-- Url link area to send -->
-			<div class="col-lg-6 col-lg-offset-3" style="margin-bottom: 10px" ng-show="showDetails">
-				 <input placeholder="Share a link" type="url" name="bday" class="form-control" ng-model="msgUrl">
-			</div>
-
-				<div class="col-lg-6 col-lg-offset-3" style="margin-bottom: 10px;display:inline" ng-show="showDetails" >
-			<ul class="nav nav-pills nav" style="font-size:15px" >
-				<li style="clickable:true">
-					<a ng-click="sendMsg(1,placesList);showDetails = ! showDetails" href="#" style="color:#e74c3c" >
-						<strong>{{placesList.address.country}} </strong>
-					</a>
-				</li>
-
-				<li>
-					<a ng-click="sendMsg(2,placesList);showDetails = ! showDetails" href="#" style="color:#e74c3c">
-						<strong>{{placesList.address.state}}</strong>
-					</a>
-				</li>
-				
-				<li>
-					<a ng-click="sendMsg(3,placesList);showDetails = ! showDetails"  href="#" style="color:#e74c3c">
-						<strong>{{placesList.address.city}}</strong>
-					</a>
-				</li>
-
-
-			</ul>
-
-		</div>
-				
-		</div>
 		
-		<hr style="margin-left:350px;margin-right:350px;margin-top:10px;margin-bottom:10px" />
+		
+		
 	
 		<!--******************** rendering msgs from mongodb ********************-->
 		<div ng-view></div>
-		
-
-
-
-
+			
+				
 	</body>
 </html> 
-			
-	
-				
-				
-
-
-			
-			
-			
-
-	
-
-
-							
-
-					 	
-
-					
-
-
-
-

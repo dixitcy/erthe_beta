@@ -29,7 +29,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	$scope.placesList = [];
 	$scope.myplacesList = [];
 	$scope.myplaceHierarchy = [];
-	$scope.current_place = "erthe";
+	$scope.current_place = "Erthe";
 	$scope.numLimit = 2;
 
 	var set_markpermission;
@@ -48,8 +48,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		});    
 	}   
 
-	function success(position) 
-	{
+	function success(position) {
 		lati = position.coords.latitude;
 		longi = position.coords.longitude;
 		 console.log("Finally here"+ lati);
@@ -59,7 +58,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			str = btr.split(", ");
 			
 			$scope.placesList = response;
-			$scope.myplacesList.push('erthe');
+			$scope.myplacesList.push('Erthe');
 			$scope.myplaceHierarchy.push('');
 			$scope.myplacesList.push(response.address.country);
 			$scope.myplaceHierarchy.push('country');
@@ -92,9 +91,6 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			});
 		});
 	////////////////////////////////////////////////////////////////////////////////
- 
- 
-	////////Function called when submit button is pressed to send data///////////
 	
 	////////////////////////////////////////////////////////////
 
@@ -125,7 +121,8 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			});
 		})
 	}	
-	//////Method for asynchronously updating likes ////////////
+		
+	//////Method for checking url ////////////
 	$scope.check_url = function(msg){
 		if(msg.url){
 			console.log("my url is "+ msg.url);
@@ -134,7 +131,6 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		}
 		return true;
 	}
-		
 
 
 	//////Method for asynchronously updating likes ////////////
@@ -159,19 +155,37 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	
 
   	// create a map in the "map" div, set the view to a given place and zoom
-  	var map = L.map('map', {
-			    center: [22.505, 85.09],
-			    zoom: 4
-			});
+  	//var map = L.map('map', {
+	//		    center: [22.505, 85.09],
+//			    zoom: 4
+	//		});
   	//Alternative more pretty version of map using mapbox
-//	var map = L.mapbox.map('map', 'examples.map-9ijuk24y')
- //   .setView([40, -74.50], 3);
+	var map = L.mapbox.map('map', 'examples.map-20v6611k')
+    .setView([20, 84.50], 5);
   
 	// add an OpenStreetMap tile layer
-	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-		 
-	}).addTo(map);
-
+	var geoJson = {
+    type: 'FeatureCollection',
+    features: [{
+        type: 'Feature',
+        properties: {
+            title: 'IIT Bhubaneswar hostel',
+            'marker-color': '#f00',
+            'marker-size': 'small',
+            
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [85.8267838,  20.305829799999998]
+        }
+    }]
+};
+map.featureLayer.setGeoJSON(geoJson);
+map.featureLayer.on('click', function(e) {
+	$scope.Viewposts(1);
+    
+    
+});
 
 	var popup = L.popup();
 
@@ -191,7 +205,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		 locationAPI.getPlaces().success(function(response){
 		 	$scope.myplacesList = [];
 			$scope.myplaceHierarchy = [];
-		 	$scope.myplacesList.push('erthe');
+		 	$scope.myplacesList.push('Erthe');
 			$scope.myplaceHierarchy.push('');
 			console.log(Object.keys(response.address));
 			if(response.address.country){
@@ -252,29 +266,22 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			}else{
 				console.log("no road");	
 			}
-			$scope.placesList = response;
-			console.log("response is" + response.address.country);
+	
 		
-				
 		});
 		
-
-
-
-
-				
-		console.log('WORKSSSSS'+ $scope.placesList);
-		
+		console.log('WORKSSSSS');
 		console.log(e.latlng.lat);
-	   
+		
+		   
 	}
+				
 
 	map.on('click', onMapClick);
 	
 	$scope.set_marker = function(){
 		set_markpermission = true;
 	}
-	
 	$scope.show_more = function(msg){
 		
 	
@@ -286,35 +293,40 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 
 	 	
 	}
-
-	  $scope.open = function () {
+	
+	
+	$scope.open = function () {
   
-  console.log('placesList scope ' + $scope.placesList.address.country);
+		console.log('placesList scope ' + $scope.placesList.address.country);
 
-    var modalInstance = $modal.open({
-      templateUrl: 'js/post_modal.html',
-      controller: 'ModalInstanceCtrl',
-      resolve: {
-        places: function () {
-          return $scope.placesList;
-        }
-      }
-    });
+	    var modalInstance = $modal.open({
+	    	templateUrl: 'js/post_modal.html',
+	    	controller: 'ModalInstanceCtrl',
+	    	resolve: {
+	    		places: function () {
+	        		return $scope.placesList;
+	        	}
+	      	}
+	    });
 
-    modalInstance.result.then(function (mysuccess) {
-    
-     if (mysuccess === 1) {console.log("in success");$scope.showsuccessAlert=true;} else{console.log("in failure");$scope.showfailureAlert=true;};
-      
-    }, function () {
-      console.log('Modal dismissed at: ' + new Date());
-    });
-  };
+	    modalInstance.result.then(function (mysuccess) {
+	    
+	    	if (mysuccess === 1) {
+	    		console.log("in success");
+	    		$scope.showsuccessAlert=true;
+	    	} else{
+	    		console.log("in failure");
+	    		$scope.showfailureAlert=true;};
+	      
+	    	}, function () {
+	      		console.log('Modal dismissed at: ' + new Date());
+	    	});
+	  	};
 
-    $scope.closeAlert = function() {
-    $scope.showAlert = false;
-  };
-
-}])
+	    $scope.closeAlert = function() {
+	    	$scope.showAlert = false;
+		};
+	}])
 
 .controller('individualPostView', function ($scope, $routeParams, $http) {
 	$scope.name = "individualPostView";
@@ -351,13 +363,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	$locationProvider.html5Mode(true);
 })
 
-.controller('ModalDemoCtrl' ,function ($scope, $modal, $log) {
 
-  $scope.items = ['item1', 'item2', 'item3'];
-
-  
-
-});
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
@@ -417,18 +423,11 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places) {
 		})
 		$scope.currMsg = "";
 		
-		
-		
 	}
-
-  $scope.ok = function () {
-    $modalInstance.close();
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
 };	
+
+
+
  angular.module('igTruncate', []).filter('truncate', function (){
   return function (text, length, end){
     if (text != undefined){
@@ -451,18 +450,4 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places) {
 })
 
 
-//Paging stuff I think
-ListController = function($scope, itemService) {
-    var pagesShown = 1;
-    var pageSize = 5;
-    $scope.items = itemService.getAll();
-    $scope.itemsLimit = function() {
-        return pageSize * pagesShown;
-    };
-    $scope.hasMoreItemsToShow = function() {
-        return pagesShown < ($scope.items.length / pageSize);
-    };
-    $scope.showMoreItems = function() {
-        pagesShown = pagesShown + 1;         
-    };
-};
+
