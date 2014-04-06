@@ -161,7 +161,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	//		});
   	//Alternative more pretty version of map using mapbox
 	var map = L.mapbox.map('map', 'examples.map-20v6611k')
-    .setView([20, 84.50], 5);
+    .setView([20, 34.50], 2);
   
 	// add an OpenStreetMap tile layer
 	var geoJson = {

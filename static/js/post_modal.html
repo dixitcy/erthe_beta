@@ -7,8 +7,13 @@
       <div  style="margin-bottom: 10px">
          <input placeholder="Share a link" type="url" name="bday" class="form-control" ng-model="$parent.msgUrl">
       </div>
-            
         <ul class="nav nav-pills nav" style="font-size:15px" ng-if="placesList.address">
+        <li style="clickable:true">
+          <a style="color:#e74c3c" >
+          <strong style="color:#e74c3c"><i class="fa fa-map-marker"></i></strong>
+            
+          </a>
+        </li>
         <li style="clickable:true">
           <a ng-click="sendMsg(1,placesList)" href="#" style="color:#e74c3c" >
             <strong>{{placesList.address.country}} </strong>
@@ -18,8 +23,8 @@
         <li ng-if="placesList.address.state">
           <a ng-click="sendMsg(2,placesList)" href="#" style="color:#e74c3c">
             <strong>{{placesList.address.state}}</strong>
-          </a>
         </li>
+          </a>
         <li ng-if="placesList.address.state_district">
           <a ng-click="sendMsg(3,placesList)"  href="#" style="color:#e74c3c">
             <strong>{{placesList.address.state_district}}</strong>
