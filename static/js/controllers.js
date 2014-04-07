@@ -86,7 +86,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	/////////// Get data with HTTP get request and bind to scope which is seen in the HTML
 		$http.get('/messages.json').success(function(data) {
 			$scope.msgs = data.map(function(item) {
-				item.date = new Date(item.date).toLocaleString(); 
+				//item.date = new Date(item.date).toLocaleString(); 
 				return item;
 			});
 		});
