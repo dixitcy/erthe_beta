@@ -1,6 +1,11 @@
-		<div ng-repeat="msg in msgs | filter:criteria" style="margin-top:0px">
-			<div class="myclass" >
-				
+		<div ng-repeat="msg in msgs | filter:criteria">
+			<div class="myclass" ng-class="{focus: hover}" ng-mouseenter="hover=true" ng-mouseleave="hover=false" >
+				<style type="text/css">
+					.focus{
+						background-color: #000;
+						color: #fff;
+					}
+				</style>
 					<h6 style="display:inline-block">
 						  <span>{{msg.country}}</span>  <span ng-if="msg.state != 'unavailable'">.&nbsp;{{msg.state}}</span>  <span ng-if="msg.county">.&nbsp;{{msg.county}}</span><span ng-if="msg.suburb">.&nbsp;{{msg.suburb}}</span> <span ng-if="msg.city != 'unavailable'">.&nbsp;{{msg.city}}</span>  <span ng-if="msg.road">.{{msg.road}}&nbsp;</span> 
 						

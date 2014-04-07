@@ -24,6 +24,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 })
 
 
+
 .controller('MsgListCtrl',[ '$scope','$http','$window','locationAPI', '$modal', function ($scope, $http, $window, locationAPI, $modal){
 	
 	$scope.placesList = [];
