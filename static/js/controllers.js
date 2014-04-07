@@ -137,18 +137,18 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	//////Method for asynchronously updating likes ////////////
 	$scope.likeMsg = function(likey,msg){
 
-		console.log("likey " + msg._id);
+		if(likey === 1){
+				msg.likes += 1;
+			}else{
+				msg.likes -= 1;
+			} 
 		
 		payload = {
 			myid: msg._id,
 			likeornot: likey
 		}
 		$http.post('likeupdate',payload).success(function (){
-			if(likey === 1){
-				msg.likes += 1;
-			}else{
-				msg.likes -= 1;
-			}  
+			
 		});
 	}
 	///////////////////////////////////////////////////////////////
@@ -324,6 +324,36 @@ map.featureLayer.on('click', function(e) {
 	    	});
 	  	};
 
+
+
+	$scope.login = function () {
+  
+		
+
+	    var modalInstance = $modal.open({
+	    	templateUrl: 'js/login-modal.html',
+	    	controller: 'ModalInstanceCtrl',
+	    	resolve: {
+	    		places: function () {
+	        		return "hyderabad";
+	        	}
+	      	}
+	    });
+
+	    modalInstance.result.then(function (mysuccess) {
+	    
+	    	if (mysuccess === 1) {
+	    		console.log("in success");
+	    		$scope.showsuccessAlert=true;
+	    	} else{
+	    		console.log("in failure");
+	    		$scope.showfailureAlert=true;};
+	      
+	    	}, function () {
+	      		console.log('Modal dismissed at: ' + new Date());
+	    	});
+	  	};
+
 	    $scope.closeAlert = function() {
 	    	$scope.showAlert = false;
 		};
@@ -334,18 +364,18 @@ map.featureLayer.on('click', function(e) {
 	$scope.post = $scope.msgs[$routeParams.index];
 	$scope.likeMsg = function(likey,msg){
 
-		console.log(likey+ "likey " + msg._id);
-		
+		if(likey === 1){
+				msg.likes += 1;
+			}else{
+				msg.likes -= 1;
+			} 
+
 		payload = {
 			myid: msg._id,
 			likeornot: likey
 		}
 		$http.post('likeupdate',payload).success(function (){
-			if(likey === 1){
-				msg.likes += 1;
-			}else{
-				msg.likes -= 1;
-			}  
+			 
 		});
 	}
 })
