@@ -350,7 +350,7 @@ map.featureLayer.on('click', function(e) {
 	    		$scope.showfailureAlert=true;};
 	      
 	    	}, function () {
-	      		console.log('Modal dismissed at: ' + new Date());
+	      		
 	    	});
 	  	};
 

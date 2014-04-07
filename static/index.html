@@ -22,7 +22,7 @@
 		<strong><title>erthe</title></strong>
 
 		<style>
-			
+		
 			#map { margin-top: 65px;margin-left: 15px; height: 200px; }
 
 			html { height: 100% }
@@ -87,7 +87,7 @@
 					</ul>
 
 					
-					<button type="button" ng-click="open()" class="btn btn-danger pull-right" style="margin:10px"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
+					<button type="button" ng-click="open()" class="btn btn-danger pull-right" style="margin:10px;outline: none;"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
 
 				</div>
 				
@@ -103,11 +103,11 @@
 				
 			</ul>
 		</div>
-		<div ng-show="showsuccessAlert" class="alert alert-success alert-dismissable col-lg-6 col-lg-offset-3">
+		<div ng-show="showsuccessAlert" class="alert alert-success alert-dismissable" style="margin-top:30px;width:50%">
 			<button type="button" class="close" ng-click="showsuccessAlert = !showsuccessAlert" data-dismiss="alert">&times;</button>
-			<strong>Posted!</strong> Check if your post gains traction.
+			<strong>Posted!</strong>
 		</div>
-		<div ng-show="showfailureAlert" class="alert alert-danger alert-dismissable col-lg-6 col-lg-offset-3">
+		<div ng-show="showfailureAlert" class="alert alert-danger alert-dismissable col-lg-6 col-lg-offset-3" style="margin-top:30px">
 			<button type="button" class="close" ng-click="showfailureAlert = !showfailureAlert" data-dismiss="alert">&times;</button>
 			<strong>couldn't post!</strong> The gods are not in your favor.
 		</div>
