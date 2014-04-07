@@ -267,7 +267,7 @@ map.featureLayer.on('click', function(e) {
 			}else{
 				console.log("no road");	
 			}
-	
+			$scope.placesList = response;
 		
 		});
 		
