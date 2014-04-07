@@ -3,7 +3,7 @@
 <a href="/"  style="color:#c0392b;text-decoration:none"> back</a>
 				&nbsp;
 					<h6 style="display:inline-block">
-						  <span>{{post.country}}</span>  <span ng-if="post.state != 'unavailable'">.&nbsp;{{post.state}}</span>  <span ng-if="post.county">.&nbsp;{{post.county}}</span><span ng-if="post.suburb">.&nbsp;{{post.suburb}}</span> <span ng-if="post.city != 'unavailable'">.&nbsp;{{post.city}}</span>  <span ng-if="post.road != 'unavailable'">{{post.road}}.&nbsp;</span> &nbsp;&nbsp; <span  class="pull-right">{{post.date}} </span>
+						  <span>{{post.country}}</span>  <span ng-if="post.state != 'unavailable'">.&nbsp;{{post.state}}</span>  <span ng-if="post.county">.&nbsp;{{post.county}}</span><span ng-if="post.suburb">.&nbsp;{{post.suburb}}</span> <span ng-if="post.city != 'unavailable'">.&nbsp;{{post.city}}</span>  <span ng-if="post.road != 'unavailable'">{{post.road}}.&nbsp;</span> &nbsp;&nbsp;<span>{{post.date | date:'medium'}} </span>
 						
 					</h6>
 
