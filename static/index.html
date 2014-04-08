@@ -24,7 +24,7 @@
 
 		<style>
 		
-			#map { margin-top: 65px;margin-left: 15px; height: 200px; }
+			#map { margin-left: 10px; height: 200px; }
 
 			html { height: 100% }
 			body { height: 100%; margin: 0; padding: 0; background: #000; }
@@ -65,19 +65,20 @@
 			<div class="container-fluid">
 				<div class="navbar-header">
 
-					<a class="navbar-brand" href="index.html" style="color:#fff;font-family:Roboto;font-size:25px"><i class="fa fa-globe"></i>&nbsp;&nbsp;erthe</a>
+					<a class="navbar-brand" href="index.html" style="color:#fff;font-family:Roboto;font-size:25px"><span class="label label-default" style="background-color:#222222"><i class="fa fa-globe"></i>&nbsp;&nbsp;erthe</i></span></a>
 				</div>
 
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
 						<input type="text" ng-model="criteria" style="margin-top:9px" placeholder="search">
+						<button ng-click="search()" ><i class="fa fa-search"></i></button>
 			        </div>
 			    </form>
 			        
-					<ul class="nav nav-pills" style="margin-top:10px;display:inline-block"  ng-repeat="myplace in myplacesList">
+					<ul class="nav nav-pills" style="margin-top:10px;display:inline-block"  >
 					<!--<ul class="nav nav-pills nav pull-right" style="margin-top:5px"  ng-repeat="myplace in myplacesList">-->
-						<li style="clickable:true">
+						<li style="clickable:true" ng-repeat="myplace in myplacesList">
 							<a ng-click="Viewposts($index)" href="" style="color: #36B43C;clickable:true;outline:none;font-size:13px">
 						    	<strong>
 						    		{{myplace}}&nbsp;<small ng-if="!$first">({{myplaceHierarchy[$index]}})</small>
@@ -96,14 +97,22 @@
 
 		</nav>
 		<!-- ********************Header bar******************** -->
-
-		 <div id="map" ng-show="!hideMap"></div>
-
-		<div style="display:inline">
-			<ul class="nav nav-pills nav" style="font-size:15px" >
-				
-			</ul>
+		<div style="display:block;margin-top:95px" class="container-fluid">
+		<div ng-if="show_searchresults">
+		<ul class="list-group" style="float:left">
+			<span class="label label-primary" ng-click="close_search()" style="margin:10px">cancel</i></span>
+  			<li class="list-group-item"   ng-repeat="result in searchResults" style="margin:10px;width:200px;font-family:Roboto">
+    			{{result}}
+  			</li>
+  					
+		</ul>
 		</div>
+		 <div id="map" ng-show="!hideMap"></div>
+		<p class="myclass2" style="color:#36B43C;align:center">{{current_place}}</p>
+		<div ng-view></div>
+		 </div>
+
+		
 		<div ng-show="showsuccessAlert" class="alert alert-success alert-dismissable col-lg-6 col-lg-offset-3" style="margin-top:30px">
 			<button type="button" class="close" ng-click="showsuccessAlert = !showsuccessAlert" data-dismiss="alert">&times;</button>
 			<strong>Posted successfully!</strong>
@@ -116,14 +125,12 @@
 		<!-- *********************current place ****************-->
 		
 
-			<p class="col-lg-3 myclass2" style="color:#36B43C">{{current_place}}</p>
 
 		
 		
 		
 	
 		<!--******************** rendering msgs from mongodb ********************-->
-		<div ng-view></div>
 			
 				
 	</body>

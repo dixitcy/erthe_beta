@@ -23,41 +23,70 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	}
 })
 
+.service('searchMap', function($http){
+
+	this.getsearch = function(query) {
+		return $http({
+			method: 'JSONP',
+			url: 'http://open.mapquestapi.com/nominatim/v1/search.php?format=json&limit=4&json_callback=JSON_CALLBACK&q='+query
+		})
+	}
+})
 
 
-.controller('MsgListCtrl',[ '$scope','$http','$window','locationAPI', '$modal', function ($scope, $http, $window, locationAPI, $modal){
+
+.controller('MsgListCtrl',[ '$scope','$http','$window','locationAPI', '$modal','searchMap', function ($scope, $http, $window, locationAPI, $modal, searchMap){
 	
 	$scope.placesList = [];
 	$scope.myplacesList = [];
 	$scope.myplaceHierarchy = [];
+	$scope.searchResults = [];
 	$scope.current_place = "Erthe";
 	$scope.numLimit = 2;
+	$scope.show_searchresults = false;
 
 	var set_markpermission;
 	getPosition();
 	
+	$scope.search = function(){
+		$scope.searchResults = [];
+		if($scope.criteria !== ''){
+			searchMap.getsearch($scope.criteria).success(function(response){
+				for (var i = 0; i < response.length; i++) {
+					$scope.searchResults.push(response[i].display_name);
+				};
+				console.log("Nominatim search check " + $scope.searchResults);
+				$scope.show_searchresults = true;
+				
+			})
+			
+		}else{
 
+		}
+	};
+
+	$scope.close_search = function(){
+		$scope.show_searchresults = false;
+		$scope.searchResults = [];
+	}
   
 
 
 	/////////////////// Automatic location generator function 
 	function getPosition(){
-		navigator.geolocation.getCurrentPosition(success, fail,{
+		navigator.geolocation.getCurrentPosition(mysuccess, fail,{
 				enableHighAccuracy:true,
 				timeout:100000,
 				maximumAge:Infinity
 		});    
 	}   
 
-	function success(position) {
+	function mysuccess(position) {
 		lati = position.coords.latitude;
 		longi = position.coords.longitude;
 		 console.log("Finally here"+ lati);
 		 locationAPI.getPlaces().success(function(response){
-			var btr = response.display_name;
-			var str = [];
-			str = btr.split(", ");
-			
+						
 			$scope.placesList = response;
 			$scope.myplacesList.push('Erthe');
 			$scope.myplaceHierarchy.push('');
@@ -71,7 +100,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			$scope.myplaceHierarchy.push('city');
 			$scope.myplacesList.push(response.address.road);
 			$scope.myplaceHierarchy.push('road');
-			console.log(str[1]);
+			
 		});
 	}
 
@@ -332,7 +361,7 @@ map.featureLayer.on('click', function(e) {
 
 	    var modalInstance = $modal.open({
 	    	templateUrl: 'js/map-modal.html',
-	    
+	    	
 	    	
 	    });
 
@@ -346,37 +375,15 @@ map.featureLayer.on('click', function(e) {
 
 
 
-	$scope.login = function () {
-  
-		
-
-	    var modalInstance = $modal.open({
-	    	templateUrl: 'js/login-modal.html',
-	    	controller: 'ModalInstanceCtrl',
-	    	resolve: {
-	    		places: function () {
-	        		return "hyderabad";
-	        	}
-	      	}
-	    });
-
-	    modalInstance.result.then(function (mysuccess) {
-	    
-	    	if (mysuccess === 1) {
-	    		console.log("in success");
-	    		$scope.showsuccessAlert=true;
-	    	} else{
-	    		console.log("in failure");
-	    		$scope.showfailureAlert=true;};
-	      
-	    	}, function () {
-	      		
-	    	});
-	  	};
 
 	    $scope.closeAlert = function() {
 	    	$scope.showAlert = false;
 		};
+
+
+	
+
+
 	}])
 
 .controller('individualPostView', function ($scope, $routeParams, $http) {
