@@ -2,7 +2,7 @@
 <html ng-app="msgboardApp">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes' />
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
@@ -12,7 +12,8 @@
 		<script src="js/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
 		<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
 		<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
-
+<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.js'></script>
+<link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' />
 
 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
 		<link rel="stylesheet"href="//fonts.googleapis.com/css?family=Roboto:light,regular,medium,thin,italic,mediumitalic,bold" title="roboto">
@@ -70,14 +71,14 @@
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-						<input type="text" ng-model="criteria" class="form-control" placeholder="Filter posts by place">
+						<input type="text" ng-model="criteria" style="margin-top:9px" placeholder="search">
 			        </div>
 			    </form>
 			        
-					<ul class="nav nav-pills" style="margin-top:5px;display:inline-block"  ng-repeat="myplace in myplacesList">
+					<ul class="nav nav-pills" style="margin-top:10px;display:inline-block"  ng-repeat="myplace in myplacesList">
 					<!--<ul class="nav nav-pills nav pull-right" style="margin-top:5px"  ng-repeat="myplace in myplacesList">-->
 						<li style="clickable:true">
-							<a ng-click="Viewposts($index)" href="" style="color: #36B43C;clickable:true;outline:none">
+							<a ng-click="Viewposts($index)" href="" style="color: #36B43C;clickable:true;outline:none;font-size:13px">
 						    	<strong>
 						    		{{myplace}}&nbsp;<small ng-if="!$first">({{myplaceHierarchy[$index]}})</small>
 						    	</strong>
@@ -103,9 +104,9 @@
 				
 			</ul>
 		</div>
-		<div ng-show="showsuccessAlert" class="alert alert-success alert-dismissable" style="margin-top:30px;width:50%">
+		<div ng-show="showsuccessAlert" class="alert alert-success alert-dismissable col-lg-6 col-lg-offset-3" style="margin-top:30px">
 			<button type="button" class="close" ng-click="showsuccessAlert = !showsuccessAlert" data-dismiss="alert">&times;</button>
-			<strong>Posted!</strong>
+			<strong>Posted successfully!</strong>
 		</div>
 		<div ng-show="showfailureAlert" class="alert alert-danger alert-dismissable col-lg-6 col-lg-offset-3" style="margin-top:30px">
 			<button type="button" class="close" ng-click="showfailureAlert = !showfailureAlert" data-dismiss="alert">&times;</button>

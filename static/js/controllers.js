@@ -161,8 +161,11 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 //			    zoom: 4
 	//		});
   	//Alternative more pretty version of map using mapbox
-	var map = L.mapbox.map('map', 'examples.map-20v6611k')
-    .setView([20, 34.50], 2);
+	var map = L.mapbox.map('map', 'examples.map-20v6611k' ,{
+    	tileLayer: {format: 'jpg70',  continuousWorld: false,
+        // this option disables loading tiles outside of the world bounds.
+        noWrap: true}
+	}).setView([20, 34.50], 3);
   
 	// add an OpenStreetMap tile layer
 	var geoJson = {
@@ -187,7 +190,7 @@ map.featureLayer.on('click', function(e) {
     
     
 });
-
+	
 	var popup = L.popup();
 
 	function onMapClick(e) {
@@ -319,6 +322,23 @@ map.featureLayer.on('click', function(e) {
 	    		console.log("in failure");
 	    		$scope.showfailureAlert=true;};
 	      
+	    	}, function () {
+	      		console.log('Modal dismissed at: ' + new Date());
+	    	});
+	  	};
+	  	$scope.open_map = function () {
+  
+		
+
+	    var modalInstance = $modal.open({
+	    	templateUrl: 'js/map-modal.html',
+	    
+	    	
+	    });
+
+	    modalInstance.result.then(function () {
+	    
+	    	
 	    	}, function () {
 	      		console.log('Modal dismissed at: ' + new Date());
 	    	});
@@ -456,6 +476,7 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places) {
 		
 	}
 };	
+
 
 
 
