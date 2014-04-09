@@ -53,7 +53,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		if($scope.criteria !== ''){
 			searchMap.getsearch($scope.criteria).success(function(response){
 				for (var i = 0; i < response.length; i++) {
-					$scope.searchResults.push(response[i].display_name);
+					$scope.searchResults.push(response[i]);
 				};
 				console.log("Nominatim search check " + $scope.searchResults);
 				$scope.show_searchresults = true;
@@ -68,6 +68,12 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	$scope.close_search = function(){
 		$scope.show_searchresults = false;
 		$scope.searchResults = [];
+		
+	}
+
+	$scope.goto_map = function(index){
+		console.log("going to lat "+ $scope.searchResults[index].lat +" going to lon "+  $scope.searchResults[index].lon);
+	map.setView([$scope.searchResults[index].lat, $scope.searchResults[index].lon], 15);
 	}
   
 

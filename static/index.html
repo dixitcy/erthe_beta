@@ -52,7 +52,7 @@
 			    margin-left: -10px;
 			    text-rendering: optimizelegibility;
 			}
-
+			
 		</style>
 	
 	</head>
@@ -65,13 +65,13 @@
 			<div class="container-fluid">
 				<div class="navbar-header">
 
-					<a class="navbar-brand" href="index.html" style="color:#fff;font-family:Roboto;font-size:25px"><span class="label label-default" style="background-color:#222222"><i class="fa fa-globe"></i>&nbsp;&nbsp;erthe</i></span></a>
+					<a class="navbar-brand" href="/" style="color:#fff;font-family:Roboto;font-size:25px"><span class="label label-default" style="background-color:#222222"><i class="fa fa-globe"></i>&nbsp;&nbsp;erthe</i></span></a>
 				</div>
 
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-						<input type="text" ng-model="criteria" style="margin-top:9px" placeholder="search">
+						<input type="text" ng-model="criteria" style="margin-top:9px" placeholder="search" >
 						<button ng-click="search()" ><i class="fa fa-search"></i></button>
 			        </div>
 			    </form>
@@ -89,7 +89,7 @@
 					</ul>
 
 					
-					<button type="button" ng-click="open()" class="btn btn-danger pull-right" style="margin:10px;outline: none;"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
+					<button type="button" ng-click="open()" class="btn btn-danger btn-sm pull-right" style="margin:10px;outline: none;"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
 
 				</div>
 				
@@ -97,12 +97,12 @@
 
 		</nav>
 		<!-- ********************Header bar******************** -->
-		<div style="display:block;margin-top:95px" class="container-fluid">
+		<div style="display:block;margin-top:75px" class="container-fluid">
 		<div ng-if="show_searchresults">
 		<ul class="list-group" style="float:left">
 			<span class="label label-primary" ng-click="close_search()" style="margin:10px">cancel</i></span>
-  			<li class="list-group-item"   ng-repeat="result in searchResults" style="margin:10px;width:200px;font-family:Roboto">
-    			{{result}}
+  			<li class="list-group-item" ng-click="goto_map($index)"  ng-repeat="result in searchResults" style="margin:10px;width:200px;font-family:Roboto">
+    			{{result.display_name}}
   			</li>
   					
 		</ul>
