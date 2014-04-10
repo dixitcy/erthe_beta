@@ -7,10 +7,49 @@
       <div  style="margin-bottom: 10px">
          <input placeholder="Share a link" type="url" name="bday" class="form-control" ng-model="$parent.msgUrl">
       </div>
+       <ul class="nav nav-pills nav" style="font-size:15px" ng-if="placesList.address">
+         <li>
+          <a href="">
+            <strong>Tag'em </strong>        
+          </a>
+        </li>
+        <li >
+          
+        <a href="" style="outline:none">
+           <span ng-click="show_selectednews = !show_selectednews;addTag(2)"  class="label label-warning"><i ng-show="show_selectednews" class="fa fa-check"></i>&nbsp;unverified</span>
+        </a>  
+        </li>
+
+        <li >
+           <a href="" style="outline:none">
+            <span ng-click="show_selectedpolitics = !show_selectedpolitics;addTag(4)"  class="label label-primary"><i ng-show="show_selectedpolitics" class="fa fa-check"></i>&nbsp;politics</span>        
+          </a> 
+        </li>
+       <li >
+           <a href="" style="outline:none">
+            <span ng-click="show_selectedtech = !show_selectedtech;addTag(1)"  class="label label-success"><i ng-show="show_selectedtech" class="fa fa-check"></i>&nbsp;verified</span>        
+          </a>
+         </li>
+       <li >
+           <a href="" style="outline:none">
+            <span ng-click="show_selectedbreaking = !show_selectedbreaking;addTag(3)"  class="label label-danger"><i ng-show="show_selectedbreaking" class="fa fa-check"></i>&nbsp;breaking</span>        
+          </a> 
+        </li>
+         <li >
+           <a href="" style="outline:none">
+            <span ng-click="show_selected = !show_selected;addTag(5)"  class="label label-default"><i ng-show="show_selected" class="fa fa-check"></i>&nbsp;other</span>        
+          </a>
+        </li>
+     
+    
+
+
+      </ul>
+
         <ul class="nav nav-pills nav" style="font-size:15px" ng-if="placesList.address">
         <li style="clickable:true">
-          <a style="color:#e74c3c" >
-          <strong style="color:#e74c3c"><i class="fa fa-map-marker"></i></strong>
+          <a  >
+          <strong >Post to</strong>
             
           </a>
         </li>

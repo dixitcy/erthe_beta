@@ -27,17 +27,17 @@
 			#map { margin-left: 10px; height: 200px; }
 
 			html { height: 100% }
-			body { height: 100%; margin: 0; padding: 0; background: #000; }
+			body { height: 100%; margin: 0; padding: 0; background: #fff; }
 			
 			.myclass{
 				font-size: 25px;
 				font-family: Roboto,sans-serif;
-			    color: #fff;
+			    color: #000;
 			    padding-bottom: 50px;
 			  	padding-left:70px; 
 			  	padding-right: 10px;
 			    width: 100%;
-			    background: #000;
+			    background: #fff;
 			    text-rendering: optimizelegibility;
 
 			}
@@ -108,19 +108,18 @@
 		</ul>
 		</div>
 		 <div id="map" ng-show="!hideMap"></div>
-		<p class="myclass2" style="color:#36B43C;align:center">{{current_place}}</p>
-		<div ng-view></div>
-		 </div>
-
-		
-		<div ng-show="showsuccessAlert" class="alert alert-success alert-dismissable col-lg-6 col-lg-offset-3" style="margin-top:30px">
+		<p class="myclass2" style="color:#36B43C;align:center">{{current_place | lowercase}}</p>
+		<div ng-show="showsuccessAlert" class="container alert alert-success alert-dismissable" style="margin-top:30px;margin-bottom:20px;text-align:center;width:40%">
 			<button type="button" class="close" ng-click="showsuccessAlert = !showsuccessAlert" data-dismiss="alert">&times;</button>
 			<strong>Posted successfully!</strong>
 		</div>
-		<div ng-show="showfailureAlert" class="alert alert-danger alert-dismissable col-lg-6 col-lg-offset-3" style="margin-top:30px">
+		<div ng-show="showfailureAlert" class="container alert alert-danger alert-dismissable" style="margin-top:30px;margin-bottom:20px;text-align:center;width:40%">
 			<button type="button" class="close" ng-click="showfailureAlert = !showfailureAlert" data-dismiss="alert">&times;</button>
 			<strong>couldn't post!</strong> The gods are not in your favor.
 		</div>
+		<div ng-view></div>
+		 
+		
 
 		<!-- *********************current place ****************-->
 		

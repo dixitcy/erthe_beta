@@ -15,7 +15,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 .service('locationAPI', function($http) {
 
 	// Bangalore lat = 12.966509 and longi = 77.593689. For testing
-	this.getPlaces = function() {
+	this.getPlaces = function(lati,longi) {
 		return $http({
 			method: 'JSONP', 
 			url: 'http://nominatim.openstreetmap.org/reverse?format=json&json_callback=JSON_CALLBACK&lat='+lati+'&lon='+longi+'&zoom=18&addressdetails=1'
@@ -47,7 +47,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 
 	var set_markpermission;
 	getPosition();
-	
+	// ---------------- SEARCH BAR AND RESULTS STUFF ------------------------//
 	$scope.search = function(){
 		$scope.searchResults = [];
 		if($scope.criteria !== ''){
@@ -75,10 +75,10 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		console.log("going to lat "+ $scope.searchResults[index].lat +" going to lon "+  $scope.searchResults[index].lon);
 	map.setView([$scope.searchResults[index].lat, $scope.searchResults[index].lon], 15);
 	}
-  
+  	// ---------------- SEARCH BAR AND RESULTS STUFF ------------------------//
 
 
-	/////////////////// Automatic location generator function 
+	// ---------------- GEO-LOCATION STUFF ------------------------//
 	function getPosition(){
 		navigator.geolocation.getCurrentPosition(mysuccess, fail,{
 				enableHighAccuracy:true,
@@ -91,7 +91,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		lati = position.coords.latitude;
 		longi = position.coords.longitude;
 		 console.log("Finally here"+ lati);
-		 locationAPI.getPlaces().success(function(response){
+		 locationAPI.getPlaces(position.coords.latitude,position.coords.longitude).success(function(response){
 						
 			$scope.placesList = response;
 			$scope.myplacesList.push('Erthe');
@@ -114,10 +114,10 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	{
 		alert("Your position cannot be found"+e.code+" => "+e.message);
 	}
-	//////////////////////////////////////////////////////////////////
+	// ---------------- GEO-LOCATION STUFF ------------------------//
 
 
-
+	// ----------------  VIEWING AND POST INTERACTION STUFF ------------------------//
 	
 	/////////// Get data with HTTP get request and bind to scope which is seen in the HTML
 		$http.get('/messages.json').success(function(data) {
@@ -126,9 +126,9 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 				return item;
 			});
 		});
-	////////////////////////////////////////////////////////////////////////////////
 	
-	////////////////////////////////////////////////////////////
+	
+
 
 	$scope.Viewposts = function(id){
 		console.log("Current index is   "+$scope.myplacesList[id]);
@@ -158,15 +158,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		})
 	}	
 		
-	//////Method for checking url ////////////
-	$scope.check_url = function(msg){
-		if(msg.url){
-			console.log("my url is "+ msg.url);
-		}else{
-			console.log("No url");
-		}
-		return true;
-	}
+
 
 
 	//////Method for asynchronously updating likes ////////////
@@ -186,14 +178,14 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			
 		});
 	}
-	///////////////////////////////////////////////////////////////
+	// ----------------  VIEWING AND POST INTERACTION STUFF ------------------------//
 	
 	
-
+	// ---------------- RENDERING MAP STUFF ------------------------//
   	// create a map in the "map" div, set the view to a given place and zoom
   	//var map = L.map('map', {
 	//		    center: [22.505, 85.09],
-//			    zoom: 4
+	//			    zoom: 4
 	//		});
   	//Alternative more pretty version of map using mapbox
 	var map = L.mapbox.map('map', 'examples.map-20v6611k' ,{
@@ -241,7 +233,7 @@ map.featureLayer.on('click', function(e) {
 		};
 
 
-		 locationAPI.getPlaces().success(function(response){
+		 locationAPI.getPlaces(e.latlng.lat,e.latlng.lng).success(function(response){
 		 	$scope.myplacesList = [];
 			$scope.myplaceHierarchy = [];
 		 	$scope.myplacesList.push('Erthe');
@@ -321,6 +313,8 @@ map.featureLayer.on('click', function(e) {
 	$scope.set_marker = function(){
 		set_markpermission = true;
 	}
+	// ---------------- RENDERING MAP STUFF ------------------------//
+
 	$scope.show_more = function(msg){
 		
 	
@@ -333,7 +327,7 @@ map.featureLayer.on('click', function(e) {
 	 	
 	}
 	
-	
+	// ---------------- POSTING STUFF ------------------------//
 	$scope.open = function () {
   
 		console.log('placesList scope ' + $scope.placesList.address.country);
@@ -361,36 +355,24 @@ map.featureLayer.on('click', function(e) {
 	      		console.log('Modal dismissed at: ' + new Date());
 	    	});
 	  	};
-	  	$scope.open_map = function () {
-  
-		
 
-	    var modalInstance = $modal.open({
-	    	templateUrl: 'js/map-modal.html',
-	    	
-	    	
-	    });
-
-	    modalInstance.result.then(function () {
-	    
-	    	
-	    	}, function () {
-	      		console.log('Modal dismissed at: ' + new Date());
-	    	});
-	  	};
-
-
-
-
-	    $scope.closeAlert = function() {
-	    	$scope.showAlert = false;
-		};
-
+  	 $scope.closeAlert = function() {
+    	$scope.showAlert = false;
+	};
 
 	
+	$scope.check_url = function(msg){
+		if(msg.url){
+			console.log("my url is "+ msg.url);
+		}else{
+			console.log("No url");
+		}
+		return true;
+	}
+	  	// ---------------- POSTING STUFF ------------------------//
 
 
-	}])
+}])
 
 .controller('individualPostView', function ($scope, $routeParams, $http) {
 	$scope.name = "individualPostView";
@@ -434,11 +416,32 @@ map.featureLayer.on('click', function(e) {
 
 var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places) {
 
+	var tagverify;
+	var tagunverify;
+	var tagpolitics;
+	var tagbreaking;
+	var tagother;
   $scope.placesList = places;
-  $scope.selected = {
-    
+  $scope.addTag = function(tag){
+    if (tag===1) {
+    	tagverify = 1;
+    } 
+    if(tag===2){
+    	tagunverify = 1;
+    }
+    if(tag===3){
+    	tagbreaking = 1;
+    }
+    if(tag===4){
+    	tagpolitics = 1;
+    }
+    if(tag===5){
+    	tagother = 1;
+    }
   };
+
   $scope.sendMsg = function(depth,list) {
+  	console.log("show_selectednews is " + $scope.show_selectednews);
 		console.log('Yoo HOO'+ list.address.country);
 		var mysuccess = 0;
 		if ($scope.msgUrl) {
@@ -473,7 +476,12 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places) {
 			likes: 0,
 			country: mycountry,
 			state: mystate,
-			city: mycity
+			city: mycity,
+			verified: tagverify,
+			unverified: tagunverify,
+			politics: tagpolitics,
+			other: tagother,
+			breaking: tagbreaking
 		}
 		// Send post request to server to insert into mongodb
 		$http.post('messages', payload).success(function() {

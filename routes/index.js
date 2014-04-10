@@ -12,13 +12,20 @@ exports.index = function(req, res){
 exports.postmessage = function(msgColl){
 	return function (req, res){
 		body = req.body;
-		console.log("posted msg body" + body.country);
+		console.log("posted msg body" + body.politics);
 		msg  = body.msg; date = body.date;
 		country = body.country;
 		state = body.state;
 		city = body.city;
 		likes = body.likes;
 		url = body.url;
+		verified = body.verified;
+		unverified = body.unverified;
+		other = body.other;
+		politics = body.politics;
+		breaking = body.breaking;
+
+
 
 		if( msg && date) {
 			msg = {
@@ -28,7 +35,12 @@ exports.postmessage = function(msgColl){
 				msg:  msg,
 				url: url,
 				likes: likes,
-				date: +date
+				date: date,
+				verified : verified,
+				unverified : unverified,
+				other : other,
+				politics : politics,
+				breaking : breaking,
 			} 
 
 			msgColl.insert(msg, {}, function() {
