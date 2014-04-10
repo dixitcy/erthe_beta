@@ -57,6 +57,8 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 				};
 				console.log("Nominatim search check " + $scope.searchResults);
 				$scope.show_searchresults = true;
+
+
 				
 			})
 			
@@ -74,6 +76,75 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	$scope.goto_map = function(index){
 		console.log("going to lat "+ $scope.searchResults[index].lat +" going to lon "+  $scope.searchResults[index].lon);
 	map.setView([$scope.searchResults[index].lat, $scope.searchResults[index].lon], 15);
+		 locationAPI.getPlaces($scope.searchResults[index].lat,$scope.searchResults[index].lon).success(function(response){
+		 	$scope.myplacesList = [];
+			$scope.myplaceHierarchy = [];
+		 	$scope.myplacesList.push('Erthe');
+			$scope.myplaceHierarchy.push('');
+			console.log(Object.keys(response.address));
+			if(response.address.country){
+
+				$scope.myplacesList.push( response.address.country);
+				$scope.myplaceHierarchy.push('country');
+			}else{
+				console.log("no country");	
+			}
+			if(response.address.state){
+				$scope.myplacesList.push( response.address.state);
+				$scope.myplaceHierarchy.push('state');
+			}else{
+				console.log("no state");	
+			}
+			if(response.address.state_district){
+				$scope.myplacesList.push( response.address.state_district);
+				$scope.myplaceHierarchy.push('district');
+			}else{
+				console.log("no state_district");	
+			}
+			if(response.address.county ){
+				if(response.address.state_district && response.address.state_district !== response.address.county){
+					$scope.myplacesList.push( response.address.county);
+					$scope.myplaceHierarchy.push('county');
+					
+				}
+			}else{
+				console.log("no county");
+			}
+			if(response.address.city){
+				$scope.myplacesList.push( response.address.city);
+				$scope.myplaceHierarchy.push('city');
+			}else{
+				console.log("no city");	
+			}
+			if(response.address.town){
+				$scope.myplacesList.push( response.address.town);
+				$scope.myplaceHierarchy.push('town');
+			}else{
+				console.log("no town");	
+			}
+			if(response.address.suburb){
+				$scope.myplacesList.push( response.address.suburb);
+				$scope.myplaceHierarchy.push('suburb');
+			}else{
+				console.log("no suburb");	
+			}
+			if(response.address.village){
+				$scope.myplacesList.push( response.address.village);
+				$scope.myplaceHierarchy.push('village');
+			}else{
+				console.log("no village");	
+			}
+			if(response.address.road){
+				$scope.myplacesList.push( response.address.road);
+				$scope.myplaceHierarchy.push('road');
+			}else{
+				console.log("no road");	
+			}
+		
+		
+		});
+
+
 	}
   	// ---------------- SEARCH BAR AND RESULTS STUFF ------------------------//
 
