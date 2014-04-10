@@ -409,6 +409,9 @@ map.featureLayer.on('click', function(e) {
 	    	resolve: {
 	    		places: function () {
 	        		return $scope.placesList;
+	        	},
+	        	msgs: function() {
+	        		return $scope.msgs
 	        	}
 	      	}
 	    });
@@ -485,7 +488,7 @@ map.featureLayer.on('click', function(e) {
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places) {
+var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 
 	var tagverify;
 	var tagunverify;
@@ -558,6 +561,8 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places) {
 		$http.post('messages', payload).success(function() {
 			payload.date = currTime.toLocaleString();
 			// Add to current array of msgs for pseudo live update
+			msgs.push(payload);
+			console.log(msgs[0].msg);
 			mysuccess = 1;
 			console.log("result " + mysuccess)
 			$modalInstance.close(1);
