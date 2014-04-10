@@ -100,7 +100,7 @@
 		<div style="display:block;margin-top:75px" class="container-fluid">
 		<div ng-if="show_searchresults">
 		<ul class="list-group" style="float:left">
-			<span class="label label-primary" ng-click="close_search()" style="margin:10px">cancel</i></span>
+			<a href=""><span class="label label-primary" ng-click="close_search()" style="margin:10px">cancel</i></span></a>
   			<li class="list-group-item" ng-click="goto_map($index)"  ng-repeat="result in searchResults" style="margin:10px;width:200px;font-family:Roboto">
     		<a href="">	{{result.display_name}}</a>
   			</li>

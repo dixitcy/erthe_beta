@@ -2,12 +2,22 @@
 			<div class="myclass" >
 				<style type="text/css">
 					.focus{
-						background-color: #000;
-						color: #fff;
+						border-width: ;
+						border: solid;
+						border-radius: 2px;
+						border-color: #000;
+						border-spacing: 2px
+						
 					}
 				</style>
 					<h6 style="display:inline-block">
-						  <span>{{msg.country}}</span>  <span ng-if="msg.state != 'unavailable'">.&nbsp;{{msg.state}}</span>  <span ng-if="msg.county">.&nbsp;{{msg.county}}</span><span ng-if="msg.suburb">.&nbsp;{{msg.suburb}}</span> <span ng-if="msg.city != 'unavailable'">.&nbsp;{{msg.city}}</span>  <span ng-if="msg.road">.{{msg.road}}&nbsp;</span> 
+						
+							<span ng-class="{focus:hover}" ng-mouseenter="hover=true" ng-mouseleave="hover=false">{{msg.country}}
+							</span>
+						
+					    <span ng-if="msg.state != 'unavailable'">.&nbsp;{{msg.state}}</span>  
+					    <span ng-if="msg.county">.&nbsp;{{msg.county}}</span><span ng-if="msg.suburb">.&nbsp;{{msg.suburb}}</span> 
+					    <span ng-if="msg.city != 'unavailable'">.&nbsp;{{msg.city}}</span>  <span ng-if="msg.road">.{{msg.road}}&nbsp;</span>  
 						
 
 					</h6>
@@ -36,7 +46,11 @@
 		 				</h4>
 		 				<h6 style="display:inline">
 		 					&nbsp;&nbsp;<span>{{msg.date | date:'d MMM, h:mm a'}} </span> 	
-		 					 <span ng-show="msg.other === 1" style="margin:6px" class="label label-default">other</span><span class="label label-danger" ng-show="msg.breaking === 1" style="margin:6px">breaking</span><span style="margin:6px" class="label label-primary" ng-show="msg.politics === 1">politics</span><span style="margin:6px" class="label label-success" ng-show="msg.verified === 1">verified</span><span style="margin:6px" class="label label-warning" ng-show="msg.unverified === 1">unverified</span>
+		 					 <span style="margin:6px" class="label label-warning" ng-show="msg.unverified === 1">unverified</span>
+		 					 <span style="margin:6px" class="label label-success" ng-show="msg.verified === 1">verified</span>
+		 					 <span class="label label-danger" ng-show="msg.breaking === 1" style="margin:6px">breaking</span>
+		 					 <span style="margin:6px" class="label label-primary" ng-show="msg.politics === 1">politics</span>
+		 					 <span ng-show="msg.other === 1" style="margin:6px" class="label label-default">other</span>
 		 				</h6>
 					
 
