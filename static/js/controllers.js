@@ -259,35 +259,21 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	//			    zoom: 4
 	//		});
   	//Alternative more pretty version of map using mapbox
-	var map = L.mapbox.map('map', 'examples.map-20v6611k' ,{
-    	tileLayer: {format: 'jpg70',  continuousWorld: false,
-        // this option disables loading tiles outside of the world bounds.
-        noWrap: true}
-	}).setView([20, 34.50], 3);
+	
   
 	// add an OpenStreetMap tile layer
-	var geoJson = {
-    type: 'FeatureCollection',
-    features: [{
-        type: 'Feature',
-        properties: {
-            title: 'IIT Bhubaneswar hostel',
-            'marker-color': '#f00',
-            'marker-size': 'small',
-            
-        },
-        geometry: {
-            type: 'Point',
-            coordinates: [85.8267838,  20.305829799999998]
-        }
-    }]
-};
-map.featureLayer.setGeoJSON(geoJson);
-map.featureLayer.on('click', function(e) {
-	$scope.Viewposts(1);
-    
-    
-});
+
+
+  /* map settings */
+  var map = new L.Map('map');
+  var cloudmade = new L.TileLayer('http://{s}.tile.cloudmade.com/f1376bb0c116495e8cb9121360802fb0/997/256/{z}/{x}/{y}.png', {
+  attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+  maxZoom: 18
+  });
+  map.addLayer(cloudmade).setView(new L.LatLng(41.52, -71.09), 13);
+
+
+
 	
 	var popup = L.popup();
 
