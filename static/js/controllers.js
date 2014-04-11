@@ -270,7 +270,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
   attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
   maxZoom: 18
   });
-  map.addLayer(cloudmade).setView(new L.LatLng(41.52, -71.09), 13);
+  map.addLayer(cloudmade).setView(new L.LatLng(20.52, 34.09), 3);
 
 
 
