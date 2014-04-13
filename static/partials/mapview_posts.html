@@ -1,0 +1,61 @@
+		<div ng-repeat="msg in msgs | filter:postFilter" style="margin:0px;padding:0px">
+			<div>
+				<style type="text/css">
+					.focus{
+						border-width: ;
+						border: solid;
+						border-radius: 2px;
+						border-color: #000;
+						border-spacing: 2px
+						
+					}
+				</style>
+					<h6>
+						
+						<span ng-class="{focus:hover}" ng-mouseenter="hover=true" ng-mouseleave="hover=false">{{msg.country}}</span>
+						<span ng-if="msg.state != 'unavailable'">.&nbsp;{{msg.state}}</span>  
+					    <span ng-if="msg.county">.&nbsp;{{msg.county}}</span><span ng-if="msg.suburb">.&nbsp;{{msg.suburb}}</span> 
+					    <span ng-if="msg.city != 'unavailable'">.&nbsp;{{msg.city}}</span>  <span ng-if="msg.road">.{{msg.road}}&nbsp;</span>  
+						
+
+					</h6>
+					<div ng-switch on="!!msg.url" style="font-size:20px">
+						<p ng-switch-when="false" >
+							{{msg.msg|truncate:show_more(1,msg.msg)}}
+							<a ng-if="msg.msg.length > 100" href="/posts/{{$index}}"  style="color:#c0392b;text-decoration:none">more</a>
+						</p>
+						<p ng-switch-when="true">
+							 <a href="" style="color:#3498db;text-decoration:none">{{msg.msg}}</a>
+						</p>
+					</div>
+
+					<div style="display:inline">
+						<h6 style="display:inline">
+							<i  class="fa fa-heart-o"></i> 
+							&nbsp;{{msg.likes}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 					</h6>
+
+						
+	 					<h4 style="display:inline">
+		 					<a href="" class="fa fa-chevron-up" ng-click="likeMsg(1,msg)" style="text-decoration:none;color:#66CC9A;outline: none;"></a>
+		 					&nbsp;
+		 					<a href="" class="fa fa-chevron-down" ng-click="likeMsg(2,msg)" style="text-decoration:none;color:#FF5D38;outline: none;"></a>
+
+		 				</h4>
+		 				<small>
+		 				<h6 style="display:inline">
+		 					
+		 					 <span style="margin:6px" class="label label-warning" ng-show="msg.unverified === 1">unverified</span>
+		 					 <span style="margin:6px" class="label label-success" ng-show="msg.verified === 1">opinions</span>
+		 					 <span class="label label-danger" ng-show="msg.breaking === 1" style="margin:6px">breaking</span>
+		 					 <span style="margin:6px" class="label label-primary" ng-show="msg.politics === 1">confessions</span>
+		 					 <span ng-show="msg.other === 1" style="margin:6px" class="label label-default">other</span>
+		 				</h6>
+						</small>
+
+					</div>
+				
+					<hr>
+				
+			</div>
+		</div>

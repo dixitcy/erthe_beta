@@ -44,6 +44,8 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	$scope.current_place = "Erthe";
 	$scope.numLimit = 2;
 	$scope.show_searchresults = false;
+	$scope.displayWidth ='col-md-1';
+	$scope.mapWidth = 'col-md-11';
 
 	var set_markpermission;
 	getPosition();
@@ -52,14 +54,23 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		$scope.searchResults = [];
 		if($scope.criteria !== ''){
 			searchMap.getsearch($scope.criteria).success(function(response){
-				for (var i = 0; i < response.length; i++) {
-					$scope.searchResults.push(response[i]);
-				};
-				console.log("Nominatim search check " + $scope.searchResults);
-				$scope.show_searchresults = true;
+				if(response.length === 0){
+					console.log("response search length is zero");
+					$scope.showsearchAlert=true;
+				}
+				else{
+					for (var i = 0; i < response.length; i++) {
+						$scope.searchResults.push(response[i]);
+					};
+					console.log("Nominatim search check " + response);
+					$scope.show_searchresults = true;
+					
+				}
 
 
 				
+			}).error(function(){
+				$scope.searchResults.push([{"display_name":"No matches found"}]);
 			})
 			
 		}else{
@@ -221,11 +232,17 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		myplace = $scope.myplacesList[id];
 		console.log('/getplaceposts/'+my_id+'/'+myplace);
 		$http.get('/getplaceposts/'+my_id+'/'+myplace).success(function(data){
-			console.log('success 2');
+			console.log('success 2'+data);
+			if(data === '' || data === null){
+				$scope.msgs.push({"msg": "No posts in this location, wonder why ?"});
+			}else{
 			$scope.msgs = data.map(function(item) {
 				item.date = new Date(item.date).toLocaleString(); 
 				return item;
 			});
+				
+			}
+
 		})
 	}	
 		
@@ -270,7 +287,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
   attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
   maxZoom: 18
   });
-  map.addLayer(cloudmade).setView(new L.LatLng(20.52, 34.09), 3);
+  map.addLayer(cloudmade).setView(new L.LatLng(20.52, 94.09), 4);
 
 
 
@@ -383,6 +400,17 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 
 	 	
 	}
+	 $scope.loginData = true;
+	$scope.toggle_map = function(){
+		if ($scope.displayWidth==='col-md-11') {
+			$scope.displayWidth='col-md-1';
+			$scope.mapWidth='col-md-11';
+		} else{
+
+		 $scope.displayWidth='col-md-11';
+		 $scope.mapWidth='col-md-1';
+		};
+	}
 	
 	// ---------------- POSTING STUFF ------------------------//
 	$scope.open = function () {
@@ -458,7 +486,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 .config(function ($routeProvider,$locationProvider){
 	$routeProvider
 		.when('/',{
-			templateUrl:'/partials/view_posts.html'
+			templateUrl:'/partials/mapview_posts.html'
 		})
 		.when('/posts/:index',{
 			templateUrl:'/partials/post.html',
