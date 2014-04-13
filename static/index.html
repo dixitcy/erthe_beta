@@ -92,7 +92,6 @@
 
 		<!-- ********************BODY******************** -->
 
-		<!-- ----------------------------------Search----------------------------------------------------- -->
 		<div style="display:block;margin-top:55px" class="container">
 			<ul class="nav nav-pills" style="margin-top:10px;display:inline-block"  >
 					<!--<ul class="nav nav-pills nav pull-right" style="margin-top:5px"  ng-repeat="myplace in myplacesList">-->
@@ -107,7 +106,9 @@
 					</ul>	
 		</div>
 
-		<div style="display:block;margin-top:75px" class="container" ng-if="show_searchresults">
+		<!-- ----------------------------------Search----------------------------------------------------- -->
+
+		<div style="display:block" class="container" ng-if="show_searchresults">
 		
 			<ul class="list-inline">
 				<li class="list-group-item" ng-click="goto_map($index)"  ng-repeat="result in searchResults" style="margin:10px;width:200px;font-family:Roboto">
