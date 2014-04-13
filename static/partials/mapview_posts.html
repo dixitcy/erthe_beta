@@ -10,15 +10,18 @@
 						
 					}
 				</style>
-					<h6>
 						
+					<h6>
 						<span ng-class="{focus:hover}" ng-mouseenter="hover=true" ng-mouseleave="hover=false">{{msg.country}}</span>
-						<span ng-if="msg.state != 'unavailable'">.&nbsp;{{msg.state}}</span>  
-					    <span ng-if="msg.county">.&nbsp;{{msg.county}}</span><span ng-if="msg.suburb">.&nbsp;{{msg.suburb}}</span> 
-					    <span ng-if="msg.city != 'unavailable'">.&nbsp;{{msg.city}}</span>  <span ng-if="msg.road">.{{msg.road}}&nbsp;</span>  
+						<span ng-if="msg.state != 'unavailable'">.&nbsp;{{msg.state}}</span>
+						<span ng-if="msg.state_district != 'unavailable'">.&nbsp;{{msg.state_district}}</span>  
+					    <span ng-if="msg.county != 'unavailable'">.&nbsp;{{msg.county}}</span>
+					    <span ng-if="msg.suburb">.&nbsp;{{msg.suburb}}</span> 
+					    <span ng-if="msg.city != 'unavailable'">.&nbsp;{{msg.city}}</span>
+					    <span ng-if="msg.road != 'unavailable'">.&nbsp;{{msg.road}}</span>  
+					</h6>
 						
 
-					</h6>
 					<div ng-switch on="!!msg.url" style="font-size:20px">
 						<p ng-switch-when="false" >
 							{{msg.msg|truncate:show_more(1,msg.msg)}}

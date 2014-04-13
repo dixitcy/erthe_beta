@@ -16,7 +16,10 @@ exports.postmessage = function(msgColl){
 		msg  = body.msg; date = body.date;
 		country = body.country;
 		state = body.state;
+		state_district = body.state_district;
+		county = body.county;
 		city = body.city;
+		road = body.road;
 		likes = body.likes;
 		url = body.url;
 		verified = body.verified;
@@ -31,7 +34,10 @@ exports.postmessage = function(msgColl){
 			msg = {
 				country: country,
 				state: state,
+				state_district: state_district,
+				county: county,
 				city: city,
+				road: road,
 				msg:  msg,
 				url: url,
 				likes: likes,

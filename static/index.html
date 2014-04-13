@@ -23,7 +23,7 @@
 
 		<style>
 		
-			#map { margin-left: 10px;margin-right: 10px; height: 550px;border-radius: 20px; }
+			#map { margin-left: 10px;margin-right: 10px; height: 550px }
 
 			html { height: 100% }
 			body { height: 100%; margin: 0px; padding: 0; background: #fff; }
@@ -123,7 +123,7 @@
 		<!-- ----------------------------------Search----------------------------------------------------- -->
 
 		<!-- ----------------------------------Alerts----------------------------------------------------- -->
-		<div style="display:block;margin-top:75px" class="container" ng-show="showsearchAlert||showsuccessAlert||showfailureAlert">
+		<div style="display:block" class="container" ng-show="showsearchAlert||showsuccessAlert||showfailureAlert">
 
 			<div ng-show="showsearchAlert"  class="container alert alert-info alert-dismissable" style="margin-top:30px;margin-bottom:20px;text-align:center;width:40%">
 				<button type="button" class="close" ng-click="showsearchAlert = !showsearchAlert" data-dismiss="alert">&times;</button>

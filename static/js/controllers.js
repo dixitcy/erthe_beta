@@ -176,18 +176,69 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		 locationAPI.getPlaces(position.coords.latitude,position.coords.longitude).success(function(response){
 						
 			$scope.placesList = response;
-			$scope.myplacesList.push('Erthe');
+		 	$scope.myplacesList = [];
+			$scope.myplaceHierarchy = [];
+		 	$scope.myplacesList.push('Erthe');
 			$scope.myplaceHierarchy.push('');
-			$scope.myplacesList.push(response.address.country);
-			$scope.myplaceHierarchy.push('country');
-			$scope.myplacesList.push(response.address.state);
-			$scope.myplaceHierarchy.push('state');
-			$scope.myplacesList.push(response.address.state_district);
-			$scope.myplaceHierarchy.push('district');
-			$scope.myplacesList.push(response.address.city);
-			$scope.myplaceHierarchy.push('city');
-			$scope.myplacesList.push(response.address.road);
-			$scope.myplaceHierarchy.push('road');
+			console.log(Object.keys(response.address));
+			if(response.address.country){
+
+				$scope.myplacesList.push( response.address.country);
+				$scope.myplaceHierarchy.push('country');
+			}else{
+				console.log("no country");	
+			}
+			if(response.address.state){
+				$scope.myplacesList.push( response.address.state);
+				$scope.myplaceHierarchy.push('state');
+			}else{
+				console.log("no state");	
+			}
+			if(response.address.state_district){
+				$scope.myplacesList.push( response.address.state_district);
+				$scope.myplaceHierarchy.push('district');
+			}else{
+				console.log("no state_district");	
+			}
+			if(response.address.county ){
+				if(response.address.state_district && response.address.state_district !== response.address.county){
+					$scope.myplacesList.push( response.address.county);
+					$scope.myplaceHierarchy.push('county');
+					
+				}
+			}else{
+				console.log("no county");
+			}
+			if(response.address.city){
+				$scope.myplacesList.push( response.address.city);
+				$scope.myplaceHierarchy.push('city');
+			}else{
+				console.log("no city");	
+			}
+			if(response.address.town){
+				$scope.myplacesList.push( response.address.town);
+				$scope.myplaceHierarchy.push('town');
+			}else{
+				console.log("no town");	
+			}
+			if(response.address.suburb){
+				$scope.myplacesList.push( response.address.suburb);
+				$scope.myplaceHierarchy.push('suburb');
+			}else{
+				console.log("no suburb");	
+			}
+			if(response.address.village){
+				$scope.myplacesList.push( response.address.village);
+				$scope.myplaceHierarchy.push('village');
+			}else{
+				console.log("no village");	
+			}
+			if(response.address.road){
+				$scope.myplacesList.push( response.address.road);
+				$scope.myplaceHierarchy.push('road');
+			}else{
+				console.log("no road");	
+			}
 			
 		});
 	}
@@ -535,25 +586,149 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 		if ($scope.msgUrl) {
 			console.log("URL success" + $scope.msgUrl);
 		} else{
-			url = "#"
+			url = "";
 		};
 		
 		console.log('Yoo HOO'+ $scope.currMsg);
 		currTime = new Date();
-		if(depth === 3){
-			mycountry = list.address.country;
-			mystate = list.address.state;
-			mycity = list.address.city;
+		if(depth === 5){
+			if(list.address.country){
+				mycountry = list.address.country;
+			}else{
+				mycountry = 'unavailable';
+			}
+			if(list.address.state){
+				mystate = list.address.state;
+			}else{
+				mystate = 'unavailable';
+			}
+			if(list.address.state_district){
+				mystate_district = list.address.state_district;
+			}else{
+				mystate_district = 'unavailable';
+			}
+			if(list.address.county){
+				mycounty = list.address.county;
+			}else{
+				mycounty = 'unavailable';
+			}
+			if(list.address.city){
+				mycity = list.address.city;
+			}else{
+				mycity = 'unavailable';
+			}
+		}
+		else if(depth === 1){
+			if(list.address.country){
+				mycountry = list.address.country;
+			}else{
+				mycountry = 'unavailable';
+			};
+			mystate ='unavailable' ;
+			mystate_district ='unavailable' ;
+			mycounty ='unavailable' ;
+			mycity ='unavailable' ;
+
 		}
 		else if(depth === 2){
-			mycountry = list.address.country;
-			mystate = list.address.state;
-			mycity = 'unavailable';
+			if(list.address.country){
+				mycountry = list.address.country;
+			}else{
+				mycountry = 'unavailable';
+			}
+			if(list.address.state){
+				mystate = list.address.state;
+			}else{
+				mystate = 'unavailable';
+			}
+			mystate_district ='unavailable' ;
+			mycounty ='unavailable' ;
+			mycity ='unavailable' ;
+
+		}
+		else if(depth === 3){
+			if(list.address.country){
+				mycountry = list.address.country;
+			}else{
+				mycountry = 'unavailable';
+			}
+			if(list.address.state){
+				mystate = list.address.state;
+			}else{
+				mystate = 'unavailable';
+			}
+			if(list.address.state_district){
+				mystate_district = list.address.state_district;
+			}else{
+				mystate_district = 'unavailable';
+			}
+			mycounty ='unavailable' ;
+			mycity ='unavailable' ;
+
+		}
+		else if(depth === 4){
+			if(list.address.country){
+				mycountry = list.address.country;
+			}else{
+				mycountry = 'unavailable';
+			}
+			if(list.address.state){
+				mystate = list.address.state;
+			}else{
+				mystate = 'unavailable';
+			}
+			if(list.address.state_district){
+				mystate_district = list.address.state_district;
+			}else{
+				mystate_district = 'unavailable';
+			}
+			if(list.address.county){
+				mycounty = list.address.county;
+			}else{
+				mycounty = 'unavailable';
+			}
+			
+			mycity ='unavailable' ;
+
+		}
+		else if(depth === 7){
+			if(list.address.country){
+				mycountry = list.address.country;
+			}else{
+				mycountry = 'unavailable';
+			}
+			if(list.address.state){
+				mystate = list.address.state;
+			}else{
+				mystate = 'unavailable';
+			}
+			if(list.address.state_district){
+				mystate_district = list.address.state_district;
+			}else{
+				mystate_district = 'unavailable';
+			}
+			if(list.address.county){
+				mycounty = list.address.county;
+			}else{
+				mycounty = 'unavailable';
+			}
+			if(list.address.city){
+				mycity = list.address.city;
+			}else{
+				mycity = 'unavailable';
+			}
+			if(list.address.road){
+				myroad = list.address.road;
+			}else{
+				myroad = 'unavailable';
+			}
 		}
 		else{
 			mycountry = list.address.country;
-			mystate = 'unavailable';
-			mycity = 'unavailable';
+			mystate ='unavailable' ;
+			mystate_district ='unavailable' ;
+			mycounty ='unavailable' ;
+			mycity ='unavailable' ;
 		}
 		
 		// Create payload from msg and add date
@@ -564,7 +739,10 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 			likes: 0,
 			country: mycountry,
 			state: mystate,
+			state_district: mystate_district,
+			county: mycounty,
 			city: mycity,
+			road: myroad,
 			verified: tagverify,
 			unverified: tagunverify,
 			politics: tagpolitics,
