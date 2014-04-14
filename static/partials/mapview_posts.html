@@ -1,3 +1,7 @@
+			<div ng-show="msgs.length===0"  class="container alert alert-info alert-dismissable" style="margin-top:30px;margin-bottom:20px;text-align:center;width:80%">
+				<button type="button" class="close" ng-click="showsearchAlert = !showsearchAlert" data-dismiss="alert">&times;</button>
+					<strong>Hmm, looks like no one from {{current_place | lowercase}} has posted! </strong>
+			</div>
 		<div ng-repeat="msg in msgs | filter:postFilter" style="margin:0px;padding:0px">
 			<div>
 				<style type="text/css">

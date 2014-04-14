@@ -283,9 +283,10 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		myplace = $scope.myplacesList[id];
 		console.log('/getplaceposts/'+my_id+'/'+myplace);
 		$http.get('/getplaceposts/'+my_id+'/'+myplace).success(function(data){
-			console.log('success 2'+data);
-			if(data === '' || data === null){
-				$scope.msgs.push({"msg": "No posts in this location, wonder why ?"});
+			console.log('success 1' + data);
+			if(data.length === 0 || data === null){
+				console.log('success 2' + data);
+				$scope.msgs = data;
 			}else{
 			$scope.msgs = data.map(function(item) {
 				item.date = new Date(item.date).toLocaleString(); 

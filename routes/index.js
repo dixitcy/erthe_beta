@@ -116,16 +116,17 @@ exports.getplaceposts = function(msgColl){
 				if(id == 5){
 	  	msgColl.find({ "country" : place }, { sort: {likes: -1}}).toArray(function(err, items) {
 			if(err) {
-				return res.send(err);
+				console.log(err);
+				return res.send('err');
 			}
-			
+			console.log(items);
 			
 			res.json(items);
 		});
 	  	} else if(id == 4){
 	  		msgColl.find({ "state" : place }, { sort: {likes: -1}}).toArray(function(err, items) {
 			if(err) {
-				return res.send(err);
+				return res.send('err');
 			}
 			
 			
@@ -134,7 +135,7 @@ exports.getplaceposts = function(msgColl){
 	  	}else if(id == 3){
 	  	msgColl.find({ "state_district" : place }, { sort: {likes: -1}}).toArray(function(err, items) {
 			if(err) {
-				return res.send(err);
+				return res.send('err');
 			}
 			
 			
@@ -144,7 +145,7 @@ exports.getplaceposts = function(msgColl){
 	  	}else if(id == 2){
 	  	msgColl.find({ "county" : place }, { sort: {likes: -1}}).toArray(function(err, items) {
 			if(err) {
-				return res.send(err);
+				return res.send('err');
 			}
 			
 			
@@ -154,19 +155,17 @@ exports.getplaceposts = function(msgColl){
 	  	}else if(id == 1){
 	  		msgColl.find({ "city" : place }, { sort: {likes: -1}}).toArray(function(err, items) {
 			if(err) {
-				return res.send(err);
+				return res.send('err');
 			}
 			
 			res.json(items);
 		});
 	  	}else{
-	  		msgColl.find({}, { sort: {likes: -1}}).toArray(function(err, items) {
-			if(err) {
-				return res.send(err);
-			}
+	  		
+				res.send('err');
 			
-			res.json(items);
-		});
+			
+			
 	  	}
 	  	
 	}
