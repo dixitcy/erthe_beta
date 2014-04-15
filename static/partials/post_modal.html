@@ -1,0 +1,96 @@
+  <div class="modal-body">
+            <div style="margin-bottom: 10px;font-family:Roboto">
+        <textarea placeholder="Post your thoughts" ng-model="$parent.currMsg" class="form-control" rows="20"></textarea>
+      </div>
+      <div ng-show="showAlert" class="alert alert-success col-lg-6 col-lg-offset-3" close="closeAlert()">posted</div>
+      <!-- Url link area to send -->
+      <div  style="margin-bottom: 10px">
+         <input placeholder="Share a link" type="url" name="bday" class="form-control" ng-model="$parent.msgUrl">
+      </div>
+       <ul class="nav nav-pills nav" style="font-size:15px" ng-if="placesList.address">
+         <li>
+          <a href="">
+            <strong>Tag'em </strong>        
+          </a>
+        </li>
+        <li >
+          
+        <a href="" style="outline:none">
+           <span ng-click="show_selectednews = !show_selectednews;addTag(2)"  class="label label-warning"><i ng-show="show_selectednews" class="fa fa-check"></i>&nbsp;unverified</span>
+        </a>  
+        </li>
+
+        <li >
+           <a href="" style="outline:none">
+            <span ng-click="show_selectedpolitics = !show_selectedpolitics;addTag(4)"  class="label label-primary"><i ng-show="show_selectedpolitics" class="fa fa-check"></i>&nbsp;confession</span>        
+          </a> 
+        </li>
+       <li >
+           <a href="" style="outline:none">
+            <span ng-click="show_selectedtech = !show_selectedtech;addTag(1)"  class="label label-success"><i ng-show="show_selectedtech" class="fa fa-check"></i>&nbsp;opinion</span>        
+          </a>
+         </li>
+       <li >
+           <a href="" style="outline:none">
+            <span ng-click="show_selectedbreaking = !show_selectedbreaking;addTag(3)"  class="label label-danger"><i ng-show="show_selectedbreaking" class="fa fa-check"></i>&nbsp;breaking</span>        
+          </a> 
+        </li>
+         <li >
+           <a href="" style="outline:none">
+            <span ng-click="show_selected = !show_selected;addTag(5)"  class="label label-default"><i ng-show="show_selected" class="fa fa-check"></i>&nbsp;other</span>        
+          </a>
+        </li>
+     
+    
+
+
+      </ul>
+
+        <ul class="nav nav-pills nav" style="font-size:15px" ng-if="placesList.address">
+        <li style="clickable:true">
+          <a  >
+          <strong >Post to</strong>
+            
+          </a>
+        </li>
+        <li style="clickable:true">
+          <a ng-click="sendMsg(1,placesList)" href="#" style="color:#e74c3c" >
+            <strong>{{placesList.address.country}} </strong>
+          </a>
+        </li>
+
+        <li ng-if="placesList.address.state">
+          <a ng-click="sendMsg(2,placesList)" href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.state}}</strong>
+        </li>
+          </a>
+        <li ng-if="placesList.address.state_district">
+          <a ng-click="sendMsg(3,placesList)"  href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.state_district}}</strong>
+          </a>
+        </li>
+        <li ng-if="placesList.address.county" >
+          <a ng-click="sendMsg(4,placesList)"  href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.county}}</strong>
+          </a>
+        </li>
+        <li ng-if="placesList.address.city">
+          <a ng-click="sendMsg(5,placesList)"  href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.city}}</strong>
+          </a>
+        </li>
+        <li ng-if="placesList.address.suburb">
+          <a ng-click="sendMsg(6,placesList)"  href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.suburb}}</strong>
+          </a>
+        </li>
+        <li ng-if="placesList.address.road">
+          <a ng-click="sendMsg(7,placesList)"  href="#" style="color:#e74c3c">
+            <strong>{{placesList.address.road}}</strong>
+          </a>
+        </li>
+
+
+      </ul>
+
+        </div>

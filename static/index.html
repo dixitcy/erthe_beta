@@ -81,9 +81,9 @@
 					
 					
 
-					<button type="button" ng-click="toggle_map()" class="btn btn-primary btn-sm pull-right" style="margin:10px;outline: none;">Toggle</button>
+					<button type="button" href="" ng-click="openlogin()" class="btn btn-primary navbar-btn btn-sm pull-right" style="outline:none;margin-right:10px;background-color:#000">login / signup</button>
 
-					<button type="button" ng-click="open()" class="btn btn-danger btn-sm pull-right" style="margin:10px;outline: none;"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
+					<button type="button" ng-click="openPostmodal()" class="btn btn-danger navbar-btn btn-sm pull-right" style="outline: none;margin-right:10px"><i class="fa fa-edit"></i>&nbsp;Post stuff</button>
 
 				</div>
 				
@@ -94,7 +94,7 @@
 
 		<!-- ********************BODY******************** -->
 
-		<div style="display:block;margin-top:55px" class="container">
+		<div style="display:block;padding-top:45px" class="container">
 			<ul class="nav nav-pills" style="margin-top:10px;display:inline-block"  >
 					<!--<ul class="nav nav-pills nav pull-right" style="margin-top:5px"  ng-repeat="myplace in myplacesList">-->
 						<li style="clickable:true" ng-repeat="myplace in myplacesList track by $index">

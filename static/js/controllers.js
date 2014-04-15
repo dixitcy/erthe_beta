@@ -466,12 +466,12 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	}
 	
 	// ---------------- POSTING STUFF ------------------------//
-	$scope.open = function () {
+	$scope.openPostmodal = function () {
   
 		console.log('placesList scope ' + $scope.placesList.address.country);
 
 	    var modalInstance = $modal.open({
-	    	templateUrl: 'js/post_modal.html',
+	    	templateUrl: 'partials/post_modal.html',
 	    	controller: 'ModalInstanceCtrl',
 	    	resolve: {
 	    		places: function () {
@@ -490,12 +490,33 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	    		$scope.showsuccessAlert=true;
 	    	} else{
 	    		console.log("in failure");
-	    		$scope.showfailureAlert=true;};
+	    		$scope.showfailureAlert=true;
+	    	};
 	      
-	    	}, function () {
-	      		console.log('Modal dismissed at: ' + new Date());
-	    	});
-	  	};
+	    }, function () {
+	      	console.log('Modal dismissed at: ' + new Date());
+	    });
+	};
+
+
+	$scope.openlogin = function () {
+  
+		
+
+	    var modalInstance = $modal.open({
+	    	templateUrl: 'partials/login_modal.html',
+	    	controller: 'loginModalInstanceCtrl',
+	    	
+
+	    });
+
+	    modalInstance.result.then(function () {
+	    
+
+	    }, function () {
+	      	console.log('Modal dismissed at: ' + new Date());
+	    });
+	};
 
   	 $scope.closeAlert = function() {
     	$scope.showAlert = false;
@@ -554,6 +575,8 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
+var loginModalInstanceCtrl = function ($scope, $http, $modalInstance) {
+	}
 
 var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 
@@ -619,6 +642,7 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 			}else{
 				mycity = 'unavailable';
 			}
+			myroad = 'unavailable';
 		}
 		else if(depth === 1){
 			if(list.address.country){
@@ -630,6 +654,7 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 			mystate_district ='unavailable' ;
 			mycounty ='unavailable' ;
 			mycity ='unavailable' ;
+			myroad = 'unavailable';
 
 		}
 		else if(depth === 2){
@@ -646,6 +671,7 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 			mystate_district ='unavailable' ;
 			mycounty ='unavailable' ;
 			mycity ='unavailable' ;
+			myroad = 'unavailable';
 
 		}
 		else if(depth === 3){
@@ -666,6 +692,7 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 			}
 			mycounty ='unavailable' ;
 			mycity ='unavailable' ;
+			myroad = 'unavailable';
 
 		}
 		else if(depth === 4){
@@ -691,6 +718,7 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 			}
 			
 			mycity ='unavailable' ;
+			myroad = 'unavailable';
 
 		}
 		else if(depth === 7){
@@ -731,6 +759,7 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 			mystate_district ='unavailable' ;
 			mycounty ='unavailable' ;
 			mycity ='unavailable' ;
+			myroad = 'unavailable';
 		}
 		
 		// Create payload from msg and add date
