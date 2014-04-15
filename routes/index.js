@@ -160,6 +160,14 @@ exports.getplaceposts = function(msgColl){
 			
 			res.json(items);
 		});
+	  	}else if(id == 0){
+	  		msgColl.find().sort({likes: -1}).toArray(function(err, items) {
+			if(err) {
+				return res.send('err');
+			}
+			
+			res.json(items);
+		});
 	  	}else{
 	  		
 				res.send('err');

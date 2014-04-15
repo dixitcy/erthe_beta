@@ -267,6 +267,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		console.log("Current index is   "+$scope.myplacesList[id]);
 		$scope.current_place = $scope.myplacesList[id];
 		my_id = $scope.myplaceHierarchy[id];
+		console.log(my_id);
 		if (my_id === 'country') {
 			my_id = 5;
 		} else if (my_id === 'state') {
