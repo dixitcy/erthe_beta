@@ -108,7 +108,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			}
 			if(response.address.state_district){
 				$scope.myplacesList.push( response.address.state_district);
-				$scope.myplaceHierarchy.push('district');
+				$scope.myplaceHierarchy.push('state_district');
 			}else{
 				console.log("no state_district");	
 			}
@@ -196,7 +196,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			}
 			if(response.address.state_district){
 				$scope.myplacesList.push( response.address.state_district);
-				$scope.myplaceHierarchy.push('district');
+				$scope.myplaceHierarchy.push('state_district');
 			}else{
 				console.log("no state_district");	
 			}
@@ -254,6 +254,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	
 	/////////// Get data with HTTP get request and bind to scope which is seen in the HTML
 		$http.get('/messages.json').success(function(data) {
+			console.log("Bitches be here !");
 			$scope.msgs = data.map(function(item) {
 				//item.date = new Date(item.date).toLocaleString(); 
 				return item;
@@ -278,6 +279,8 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			my_id = 2;
 		}else if (my_id === 'city') {
 			my_id = 1;
+		}else if (my_id === 'road') {
+			my_id = 6;
 		}else if (my_id === '') {
 			my_id = 0;
 		}
@@ -285,9 +288,9 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		console.log('/getplaceposts/'+my_id+'/'+myplace);
 		$http.get('/getplaceposts/'+my_id+'/'+myplace).success(function(data){
 			console.log('success 1' + data);
-			if(data.length === 0 || data === null){
+			if(data.length === 0 || data === 'err'){
 				console.log('success 2' + data);
-				$scope.msgs = data;
+				$scope.msgs = '';
 			}else{
 			$scope.msgs = data.map(function(item) {
 				item.date = new Date(item.date).toLocaleString(); 
@@ -340,7 +343,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
   attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
   maxZoom: 18
   });
-  map.addLayer(cloudmade).setView(new L.LatLng(20.52, 54.09), 2);
+  map.addLayer(cloudmade).setView(new L.LatLng(20.52, 34.09), 2);
 
 
 
@@ -381,7 +384,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			}
 			if(response.address.state_district){
 				$scope.myplacesList.push( response.address.state_district);
-				$scope.myplaceHierarchy.push('district');
+				$scope.myplaceHierarchy.push('state_district');
 			}else{
 				console.log("no state_district");	
 			}

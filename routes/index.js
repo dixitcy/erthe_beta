@@ -132,6 +132,17 @@ exports.getplaceposts = function(msgColl){
 			
 			res.json(items);
 		});
+
+	  	}else if(id == 6){
+	  		msgColl.find({ "road" : place }, { sort: {likes: -1}}).toArray(function(err, items) {
+			if(err) {
+				return res.send('err');
+			}
+			
+			
+			res.json(items);
+		});
+	  		
 	  	}else if(id == 3){
 	  	msgColl.find({ "state_district" : place }, { sort: {likes: -1}}).toArray(function(err, items) {
 			if(err) {
