@@ -66,7 +66,7 @@
 			<div class="container-fluid">
 				<div class="navbar-header">
 
-					<a class="navbar-brand" href="/" style="color:#fff;font-family:Roboto;font-size:25px"><span class="label label-default" style="background-color:#222222"><i class="fa fa-globe"></i>&nbsp;&nbsp;erthe</span></a>
+					<a class="navbar-brand" href=""  ng-click="Viewposts(0)" style="color:#fff;font-family:Roboto;font-size:25px" data-toggle="modal" data-target="#myModal"><span class="label label-default" style="background-color:#222222"><i class="fa fa-globe"></i>&nbsp;&nbsp;erthe</span></a>
 				</div>
 
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -98,7 +98,7 @@
 			<ul class="nav nav-pills" style="margin-top:10px;display:inline-block"  >
 					<!--<ul class="nav nav-pills nav pull-right" style="margin-top:5px"  ng-repeat="myplace in myplacesList">-->
 						<li style="clickable:true" ng-repeat="myplace in myplacesList track by $index">
-							<a ng-click="Viewposts($index)" data-toggle="modal" data-target="#myModal" href="" style="color: #36B43C;clickable:true;outline:none;font-size:13px">
+							<a ng-click="Viewposts($index)" data-toggle="modal" data-target="#myModal" href="" style="color: #000;clickable:true;outline:none;font-size:13px">
 								<strong>
 									{{myplace}}&nbsp;<small ng-if="!$first">({{myplaceHierarchy[$index]}})</small>
 								</strong>
