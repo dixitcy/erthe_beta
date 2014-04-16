@@ -9,8 +9,7 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var mongo   = require('mongoskin');
-var passport = require('passport');
-var flash 	 = require('connect-flash');
+
 
 
 
