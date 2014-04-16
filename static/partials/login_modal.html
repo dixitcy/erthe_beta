@@ -17,16 +17,16 @@
   </div>
   <div class="form-group">
     <label >Email address</label>
-    <input type="email" class="form-control" ng-model="InputEmail" placeholder="cartman@stickoftruth.com">
+    <input type="email" class="form-control" ng-model="email" placeholder="cartman@stickoftruth.com">
   </div>
   <div class="form-group">
     <label >Password</label>
-    <input type="password" class="form-control" ng-model="InputPassword" placeholder="They took our jobsssss">
+    <input type="password" class="form-control" ng-model="password" placeholder="They took our jobsssss">
   </div>
 
 
 </form>
-  <button  class="btn btn-success navbar-btn" ng-click="" style=";background-color:#fff;color:#000"><span ng-show="!signup" >login</span><span ng-show="signup">signup</span></button>
+  <button  class="btn btn-success navbar-btn" ng-click="login_signup()" style=";background-color:#fff;color:#000"><span ng-show="!signup" >login</span><span ng-show="signup">signup</span></button>
 
 
 	<hr>

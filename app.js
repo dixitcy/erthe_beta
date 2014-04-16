@@ -9,10 +9,11 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var mongo   = require('mongoskin');
-var ObjectId = mongo.ObjectID;
-var querystring = require('querystring');
-var url = require('url');
-var fs = require('fs');
+var passport = require('passport');
+var flash 	 = require('connect-flash');
+
+
+
 
 var PORT = 5000;
 var DB   = 'localhost:27017/msgdb'
@@ -32,7 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser());
-app.use(express.session({secret: 'adfbjnadfbn' }))
+
 
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'static')));

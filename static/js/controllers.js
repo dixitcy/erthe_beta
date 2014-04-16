@@ -569,7 +569,9 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			templateUrl:'/partials/post.html',
 			controller: 'individualPostView',
 			 
-		})
+		}).otherwise({
+			redirectTo: '/'
+		});
 
 	$locationProvider.html5Mode(true);
 })
@@ -579,6 +581,30 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 var loginModalInstanceCtrl = function ($scope, $http, $modalInstance) {
+
+	$scope.login_signup = function(){
+		if($scope.email != '' && $scope.password != ''){
+			payload = {
+			
+			email:  $scope.email,
+			password: $scope.password,
+			
+		}
+			$http.post('signup', payload).success(function(response) {
+				
+				// Add to current array of msgs for pseudo live update
+				
+				
+				
+				console.log("signup successfull ");
+				
+			}).error(function(){
+				console.log("signup failed " );
+			})
+		}
+	}
+
+
 	}
 
 var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
