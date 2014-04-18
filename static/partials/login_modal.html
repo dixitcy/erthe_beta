@@ -1,38 +1,72 @@
+<style type="text/css">
+ .modal-dialog {
+  width: 900px;
+
+}
+</style>
 <div class="modal-body">
-<div class="container" style="width:90%">
+<div class="container" style="width:100%">
 
-<div ng-init="signup=false">
+<div>
 
-	<h3 ng-show="!signup">login</h3>
-	<h3 ng-show="signup">signup</h3>
 
 	<!-- show any messages that come back with authentication -->
 	
+<div class="container" style="width:100%">
+	
+	
+
+	<!-- Signup FORM -->
+	<div class="col-md-6" style="border-right:solid;border-right-width:0.05em">
+		<h3>signup</h3>
+		<form role="form" name="signup_form" ng-submit="register(signup_form)" novalidate>
+		 <div class="form-group">
+		    <h5 >Username</h5>
+		    <input type="text" class="form-control" ng-model="$parent.signup_username" placeholder="Eric Cartman" required>
+		  </div>
+		  <div class="form-group">
+		    <h5 >Email address</h5>
+		    <input type="email" class="form-control" name='input' ng-model="$parent.signup_email" placeholder="cartman@stickoftruth.com" required>
+		   <span class="" ng-show="signup_form.input.$error.email">Invalid email!</span>
+		  	
+		  </div>
+		  <div class="form-group">
+		    <h5 >Password</h5>
+		    <input type="password" class="form-control" ng-model="$parent.signup_password" placeholder="They took our jobsssss" required>
+		  </div>
+
+		  <button ng-disabled="signup_form.$invalid" type="submit" class="btn btn-success"  style="border-left-width:8px;background-color:#fff;color:#000">signup</button>
+
+		</form>
+		
+	</div>
 
 	<!-- LOGIN FORM -->
-<form role="form">
- <div class="form-group" ng-show="signup">
-    <label >Username</label>
-    <input type="email" class="form-control" ng-model="username" placeholder="Eric Cartman">
-  </div>
-  <div class="form-group">
-    <label >Email address</label>
-    <input type="email" class="form-control" ng-model="email" placeholder="cartman@stickoftruth.com">
-  </div>
-  <div class="form-group">
-    <label >Password</label>
-    <input type="password" class="form-control" ng-model="password" placeholder="They took our jobsssss">
-  </div>
+	<div class="col-md-6 ">
+		<h3>login</h3>
+		<form role="form" name="form" ng-submit="login_signup(form)" novalidate>
+		 
+		  <div class="form-group">
+		    <h5 >Email address</h5>
+		    <input type="email" class="form-control" name='input' ng-model="$parent.email" placeholder="cartman@stickoftruth.com" required>
+		   <span class="" ng-show="form.input.$error.email">Invalid email!</span>
+		  	
+		  </div>
+		  <div class="form-group">
+		    <h5 >Password</h5>
+		    <input type="password" class="form-control" ng-model="$parent.password" placeholder="They took our jobsssss" required>
+		  </div>
+
+		  <button ng-disabled="form.$invalid" type="submit" class="btn btn-success" style="border-left-width:8px;background-color:#fff;color:#000">login</button>
+
+		</form>
+		
+	</div>
+</div>
 
 
-</form>
-  <button  class="btn btn-success navbar-btn" ng-click="login_signup()" style=";background-color:#fff;color:#000"><span ng-show="!signup" >login</span><span ng-show="signup">signup</span></button>
-
-
+</div>
 	<hr>
-
-	<p> <span ng-show="!signup">Need an account? </span><span ng-show="signup">Have an account? </span><a ng-click="signup=!signup" ng-show="!signup" href="">Signup</a>
-	<a href="" ng-show="signup" ng-click="signup=!signup">login</a></p>
 
 	<ul>
 		<li>
@@ -54,12 +88,6 @@
 		</li>		
 	</ul>
 		
-		
-		
-	
-	
-
-</div>
 
 </div>
 </div>

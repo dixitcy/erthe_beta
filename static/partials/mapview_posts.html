@@ -5,6 +5,9 @@
 		<div ng-repeat="msg in msgs | filter:postFilter" style="margin:0px;padding:0px">
 			<div>
 				<style type="text/css">
+
+				
+
 					.focus{
 						border-width: ;
 						border: solid;
@@ -32,7 +35,7 @@
 							<a ng-if="msg.msg.length > 100" href="/posts/{{$index}}"  style="color:#c0392b;text-decoration:none">more</a>
 						</p>
 						<p ng-switch-when="true">
-							 <a href="" style="color:#3498db;text-decoration:none">{{msg.msg}}</a>
+							 <a href={{msg.url}} style="color:#3498db;text-decoration:none">{{msg.msg}}</a>
 						</p>
 					</div>
 
