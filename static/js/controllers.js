@@ -35,7 +35,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 
 
 
-.controller('MsgListCtrl',[ '$scope','$http','$window','locationAPI', '$modal','searchMap', function ($scope, $http, $window, locationAPI, $modal, searchMap){
+.controller('MsgListCtrl',[ '$scope','$http','$window','locationAPI', '$modal','searchMap','$timeout', function ($scope, $http, $window, locationAPI, $modal, searchMap, $timeout){
 	
 	$scope.placesList = [];
 	$scope.myplacesList = [];
@@ -456,17 +456,8 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 
 	 	
 	}
-	 $scope.loginData = true;
-	$scope.toggle_map = function(){
-		if ($scope.displayWidth==='col-md-11') {
-			$scope.displayWidth='col-md-1';
-			$scope.mapWidth='col-md-11';
-		} else{
+	 
 
-		 $scope.displayWidth='col-md-11';
-		 $scope.mapWidth='col-md-1';
-		};
-	}
 	
 	// ---------------- POSTING STUFF ------------------------//
 	$scope.openPostmodal = function () {
@@ -490,10 +481,17 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	    
 	    	if (mysuccess === 1) {
 	    		console.log("in success");
-	    		$scope.showsuccessAlert=true;
+              	$scope.showsuccessAlert = true;
+	    		$timeout(function() {
+	    			$scope.showsuccessAlert = false;
+            	}, 1000)
+	    		
 	    	} else{
 	    		console.log("in failure");
-	    		$scope.showfailureAlert=true;
+              	$scope.showfailureAlert = true;
+	    		$timeout(function() {
+	    			$scope.showfailureAlert = false;
+            	}, 1000)
 	    	};
 	      
 	    }, function () {
@@ -501,20 +499,105 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	    });
 	};
 
+	$scope.fblogout = function(){
+        console.log("logging out of fb");
+		 FB.logout(function(response) {
+        	// Person is now logged out
+   		 });
+        $scope.loggedin = false;
+	}
+	$scope.profile_name = 'user name';
+		$scope.fblogin = function(){
+		window.fbAsyncInit = function() {
+			FB.init({
+			appId      : '1430242190559014',
+			status     : true, // check login status
+			cookie     : true, // enable cookies to allow the server to access the session
+			
+			});
+
+			// Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
+			// for any authentication related change, such as login, logout or session refresh. This means that
+			// whenever someone who was previously logged out tries to log in again, the correct case below 
+			// will be handled. 
+			FB.Event.subscribe('auth.authResponseChange', function(response) {
+			// Here we specify what we do with the response anytime this event occurs. 
+			if (response.status === 'connected') {
+			  // The response object is returned with a status field that lets the app know the current
+			  // login status of the person. In this case, we're handling the situation where they 
+			  // have logged in to the app.
+			  console.log('here 1');
+			  testAPI();
+			} else if (response.status === 'not_authorized') {
+			  // In this case, the person is logged into Facebook, but not into the app, so we call
+			  // FB.login() to prompt them to do so. 
+			  // In real-life usage, you wouldn't want to immediately prompt someone to login 
+			  // like this, for two reasons:
+			  // (1) JavaScript created popup windows are blocked by most browsers unless they 
+			  // result from direct interaction from people using the app (such as a mouse click)
+			  // (2) it is a bad experience to be continually prompted to login upon page load.
+			  console.log('here 1');
+			  FB.login();
+			} else {
+			  // In this case, the person is not logged into Facebook, so we call the login() 
+			  // function to prompt them to do so. Note that at this stage there is no indication
+			  // of whether they are logged into the app. If they aren't then they'll see the Login
+			  // dialog right after they log in to Facebook. 
+			  // The same caveats as above apply to the FB.login() call here.
+			  console.log('here 1');
+			  FB.login();
+			}
+			});
+			};
+
+		  // Load the SDK asynchronously
+		  (function(d){
+		   var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+		   if (d.getElementById(id)) {return;}
+		   js = d.createElement('script'); js.id = id; js.async = true;
+		   js.src = "//connect.facebook.net/en_US/all.js";
+		   ref.parentNode.insertBefore(js, ref);
+		  }(document));
+
+		  // Here we run a very simple test of the Graph API after login is successful. 
+		  // This testAPI() function is only called in those cases. 
+		  function testAPI() {
+
+	    	console.log('Welcome!  Fetching your information.... ');
+	    	FB.api('/me', function(response) {
+	      		console.log('Good to see you, ' + response.name + '.');
+	    		$scope.profile_name = response.name;
+	    		$scope.loggedin = true;
+
+	    		 		
+	    	});
+	  	}
+
+	}
+
+
+
+
+	$scope.loggedin = false;
+	console.log('login status ' + $scope.loggedin);
 
 	$scope.openlogin = function () {
   
 		
 
 	    var modalInstance = $modal.open({
-	    	templateUrl: 'partials/login_modal.html',
+	    	templateUrl: 'partials/fblogin_modal.html',
 	    	controller: 'loginModalInstanceCtrl',
-	    	
+	   
 
 	    });
 
-	    modalInstance.result.then(function () {
-	    
+	    modalInstance.result.then(function (response) {
+	    	if (response.name !== '') {
+	    	} else{
+	    		$scope.loggedin = false;
+	    	};
+	    	console.log('login status' + $scope.loggedin);
 
 	    }, function () {
 	      	console.log('Modal dismissed at: ' + new Date());
@@ -582,30 +665,14 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 // It is not the same as the $modal service used above.
 var loginModalInstanceCtrl = function ($scope, $http, $modalInstance) {
 
-	$scope.login_signup = function(){
-		if($scope.email != '' && $scope.password != ''){
-			payload = {
-			
-			email:  $scope.email,
-			password: $scope.password,
-			
-		}
-			$http.post('signup', payload).success(function(response) {
-				
-				// Add to current array of msgs for pseudo live update
-				
-				
-				
-				console.log("signup successfull ");
-				
-			}).error(function(){
-				console.log("signup failed " );
-			})
-		}
-	}
+	
 
 
-	}
+
+
+}
+
+
 
 var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 
