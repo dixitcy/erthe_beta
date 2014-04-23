@@ -55,11 +55,8 @@
 		 				<small>
 		 				<h6 style="display:inline">
 		 					
-		 					 <span style="margin:6px" class="label label-warning" ng-show="msg.unverified === 1">unverified</span>
-		 					 <span style="margin:6px" class="label label-success" ng-show="msg.verified === 1">opinions</span>
-		 					 <span class="label label-danger" ng-show="msg.breaking === 1" style="margin:6px">breaking</span>
-		 					 <span style="margin:6px" class="label label-primary" ng-show="msg.politics === 1">confessions</span>
-		 					 <span ng-show="msg.other === 1" style="margin:6px" class="label label-default">other</span>
+		 					 <span style="margin:6px" class="label label-default" ng-repeat="tag in msg.tags">{{tag}}</span>
+		 					 
 		 				</h6>
 						</small>
 

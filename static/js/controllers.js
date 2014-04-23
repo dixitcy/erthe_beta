@@ -170,12 +170,6 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	}   
 
 
-	$scope.create_hype = function(){
-		map.setView([lati, longi], 18);
-		L.marker([lati, longi]).addTo(map)
-    .bindPopup('"Hype" will be here soon')
-    .openPopup();
-	}
 
 	function mysuccess(position) {
 		lati = position.coords.latitude;
@@ -355,6 +349,12 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 
 
 
+	$scope.create_hype = function(){
+		map.setView([lati, longi], 18);
+		L.marker([lati, longi]).addTo(map)
+    .bindPopup('"Hype" will be here soon')
+    .openPopup();
+	}
 	
 	var popup = L.popup();
 
@@ -684,24 +684,24 @@ var loginModalInstanceCtrl = function ($scope, $http, $modalInstance) {
 
 var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 
-	var tagverify;
-	var tagunverify;
-	var tagpolitics;
-	var tagbreaking;
+	var tagnews;
+	var tagquestion;
+	var tagconfession;
+	var tagopinion;
 	var tagother;
   $scope.placesList = places;
   $scope.addTag = function(tag){
     if (tag===1) {
-    	tagverify = 1;
+    	tagnews = 1;
     } 
     if(tag===2){
-    	tagunverify = 1;
+    	tagquestion = 1;
     }
     if(tag===3){
-    	tagbreaking = 1;
+    	tagconfession = 1;
     }
     if(tag===4){
-    	tagpolitics = 1;
+    	tagopinion = 1;
     }
     if(tag===5){
     	tagother = 1;
@@ -878,11 +878,11 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 			county: mycounty,
 			city: mycity,
 			road: myroad,
-			verified: tagverify,
-			unverified: tagunverify,
-			politics: tagpolitics,
+			news: tagnews,
+			question: tagquestion,
+			opinion: tagopinion,
 			other: tagother,
-			breaking: tagbreaking
+			confession: tagconfession
 		}
 		// Send post request to server to insert into mongodb
 		$http.post('messages', payload).success(function() {

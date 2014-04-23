@@ -9,10 +9,12 @@ exports.index = function(req, res){
   res.render('index.html');
 };
 
+
 exports.postmessage = function(msgColl){
 	return function (req, res){
+		var myarray = [];
 		body = req.body;
-		console.log("posted msg body" + body.politics);
+		console.log("question tag  " + body.question);
 		msg  = body.msg; date = body.date;
 		country = body.country;
 		state = body.state;
@@ -22,11 +24,22 @@ exports.postmessage = function(msgColl){
 		road = body.road;
 		likes = body.likes;
 		url = body.url;
-		verified = body.verified;
-		unverified = body.unverified;
-		other = body.other;
-		politics = body.politics;
-		breaking = body.breaking;
+		if (body.news === 1) {
+			myarray.push("news");
+		} 
+		if (body.question === 1) {
+			myarray.push("question");
+		}
+		if (body.opinion === 1) {
+			myarray.push("opinion");
+		}
+		if (body.confession === 1) {
+			myarray.push("confession");
+		}
+		if (body.other === 1) {
+			myarray.push("other");
+		}
+		
 
 
 
@@ -42,11 +55,8 @@ exports.postmessage = function(msgColl){
 				url: url,
 				likes: likes,
 				date: date,
-				verified : verified,
-				unverified : unverified,
-				other : other,
-				politics : politics,
-				breaking : breaking,
+				tags: myarray,
+				
 			} 
 
 			msgColl.insert(msg, {}, function() {
@@ -70,6 +80,40 @@ exports.messages = function(msgColl){
 	});
 };
 };
+
+exports.signup = function(usrColl){
+	return function (req, res){
+		body = req.body;
+		console.log("in user");
+		var unique = false;
+		username = body.username;
+		email = body.email;
+		password = body.password;
+		console.log(password + " password");
+
+
+
+		if( email && password) {
+			user = {
+				
+				username : username,
+				email : email,
+				password : password,
+			} 
+		
+		
+			console.log("user saved");
+		
+		
+				usrColl.insert(user, {}, function() {
+					res.send("Inserted message!"); 
+				});
+		
+		
+
+	};
+}
+}
 
 
 exports.likeupdate = function(msgColl){
@@ -104,6 +148,22 @@ exports.likeupdate = function(msgColl){
 		}
 	}
 };
+
+exports.gethypeposts = function(hypeColl){
+	return function (req, res){
+
+	  	hypeColl.find({ "hype" : place }, { sort: {likes: -1}}).toArray(function(err, items) {
+			if(err) {
+				console.log(err);
+				return res.send('err');
+			}
+			console.log(items);
+			
+			res.json(items);
+		});		
+	}
+}
+
 
 exports.getplaceposts = function(msgColl){
 	return function(req, res){
