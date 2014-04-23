@@ -169,6 +169,14 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 		});    
 	}   
 
+
+	$scope.create_hype = function(){
+		map.setView([lati, longi], 18);
+		L.marker([lati, longi]).addTo(map)
+    .bindPopup('"Hype" will be here soon')
+    .openPopup();
+	}
+
 	function mysuccess(position) {
 		lati = position.coords.latitude;
 		longi = position.coords.longitude;
