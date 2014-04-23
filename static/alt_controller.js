@@ -170,12 +170,6 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	}   
 
 
-	$scope.create_hype = function(){
-		map.setView([lati, longi], 18);
-		L.marker([lati, longi]).addTo(map)
-    .bindPopup('"Hype" will be here soon')
-    .openPopup();
-	}
 
 	function mysuccess(position) {
 		lati = position.coords.latitude;
@@ -344,13 +338,27 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
     Viewposts(0);
 });
   
+	var addressPoints = [
+
+	[25.54, 50.09, "638"],
+	[-37.8239713, 175.2245693667, "504"],
+	[-37.8365260167, 175.2170911, "673"],
+	]
+
+	$scope.create_hype = function(){
+		console.log("hype is " + $scope.hype-name);
+		map.setView([lati, longi], 18);
+		L.marker([lati, longi], {
+            icon: L.mapbox.marker.icon({'marker-size': 'small', 'marker-color': '0044FF'}),
+            title: title,
+            iconSize: [38, 95],
+        }).addTo(map)
+    	.bindPopup('')
+    	.openPopup();
+	
+		
+	}
 	// add an OpenStreetMap tile layer
-var addressPoints = [
-[20.305823699999998, 85.82726509999999, "IIT Bhubaneswar Hostel"],
-[25.54, 50.09, "638"],
-[-37.8239713, 175.2245693667, "504"],
-[-37.8365260167, 175.2170911, "673"],
-]
 
   /* map settings */
   var map = L.mapbox.map('map')
@@ -365,38 +373,21 @@ var addressPoints = [
         var a = addressPoints[i];
         var title = a[2];
         var marker = L.marker(new L.LatLng(a[0], a[1]), {
-            icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
-            title: title
+            icon: L.mapbox.marker.icon({'marker-size': 'small', 'marker-color': '0044FF'}),
+            title: title,
+            iconSize: [38, 95],
         });
         marker.bindPopup('<button id="mybutton" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" data-placement="left" title="Post random shit">'+title+'</button>');
         markers.addLayer(marker);
     }
 
     map.addLayer(markers);
+
+
   
 	function Viewposts(id){
-		console.log("Current index is   "+$scope.myplacesList[id]);
-		$scope.current_place = $scope.myplacesList[id];
-		my_id = $scope.myplaceHierarchy[id];
-		console.log(my_id);
-		if (my_id === 'country') {
-			my_id = 5;
-		} else if (my_id === 'state') {
-			my_id = 4;
-		}else if (my_id === 'state_district') {
-			my_id = 3;
-		}else if (my_id === 'county') {
-			my_id = 2;
-		}else if (my_id === 'city') {
-			my_id = 1;
-		}else if (my_id === 'road') {
-			my_id = 6;
-		}else if (my_id === '') {
-			my_id = 0;
-		}
-		myplace = $scope.myplacesList[id];
-		console.log('/getplaceposts/'+my_id+'/'+myplace);
-		$http.get('/getplaceposts/'+my_id+'/'+myplace).success(function(data){
+		
+		$http.get('/gethypeposts').success(function(data){
 			console.log('success 1' + data);
 			if(data.length === 0 || data === 'err'){
 				console.log('success 2' + data);
@@ -750,16 +741,16 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
   $scope.placesList = places;
   $scope.addTag = function(tag){
     if (tag===1) {
-    	tagverify = 1;
+    	tagnews = 1;
     } 
     if(tag===2){
-    	tagunverify = 1;
+    	tagquestion = 1;
     }
     if(tag===3){
-    	tagbreaking = 1;
+    	tagconfession = 1;
     }
     if(tag===4){
-    	tagpolitics = 1;
+    	tagopinion = 1;
     }
     if(tag===5){
     	tagother = 1;
@@ -936,11 +927,11 @@ var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 			county: mycounty,
 			city: mycity,
 			road: myroad,
-			verified: tagverify,
-			unverified: tagunverify,
-			politics: tagpolitics,
+			news: tagnews,
+			question: tagquestion,
+			opinion: tagopinion,
 			other: tagother,
-			breaking: tagbreaking
+			confession: tagconfession
 		}
 		// Send post request to server to insert into mongodb
 		$http.post('messages', payload).success(function() {
