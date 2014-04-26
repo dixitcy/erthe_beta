@@ -29,7 +29,7 @@ exports.sethype = function(hypeColl,hypemarkersColl){
 		lat = body.latitude;
 		longi = body.longitude;
 		
-hypemarkersColl.update({"_id" : ObjectId("535bf89bd093cb20d5f110db")},{ '$push': { "features" : {"geometry":{"coordinates":[longi, lat],"type":"Point"},"properties":{"description":"Starbucks","id":"marker-hr6td3dup","marker-color":"7ec9b1","marker-size":"","marker-symbol":"college","name":"Spring and Varick","title":name},"type":"Feature"}}}, {}, function() {
+hypemarkersColl.update({"_id" : ObjectId("535c0c836d192d0f82000256")},{ '$push': { "features" : {"geometry":{"coordinates":[longi, lat],"type":"Point"},"properties":{"description":"Starbucks","id":"marker-hr6td3dup","marker-color":"7ec9b1","marker-size":"","marker-symbol":"college","name":"Spring and Varick","title":name},"type":"Feature"}}}, {}, function() {
 			
 			});
 
