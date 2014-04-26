@@ -17,8 +17,14 @@ var mongo   = require('mongoskin');
 var PORT = 5000;
 var DB   = 'localhost:27017/msgdb'
 var COLL = 'messages'
+var UCOLL = 'users'
+var HYPCOLL = 'hypes'
+var HYPMARKCOLL = 'hypemarkers'
 
 msgColl = mongo.db(DB, { safe: true }).collection(COLL)
+usrColl = mongo.db(DB, { safe: true }).collection(UCOLL)
+hypeColl = mongo.db(DB, { safe: true }).collection(HYPCOLL)
+hypemarkersColl = mongo.db(DB, { safe: true }).collection(HYPMARKCOLL)
 
 
 var app = express();
@@ -55,12 +61,15 @@ app.get('/name', function (req, res){
 });
 
 app.get('/', routes.index);
-app.get('/users', user.list);
-app.get('/messages.json', routes.messages(msgColl));
 app.get('/getplaceposts/:placeid/:place', routes.getplaceposts(msgColl));
+app.get('/gethypeposts/:name', routes.gethypeposts(hypeColl));
+app.get('/markers', routes.markers(hypemarkersColl));
 
 app.post('/likeupdate', routes.likeupdate(msgColl));
 app.post('/messages', routes.postmessage(msgColl));
+app.post('/signup', routes.signup(usrColl));
+app.post('/sethype', routes.sethype(hypeColl,hypemarkersColl));
+app.post('/posttohype', routes.posttohype(hypeColl));
 
 app.listen(PORT, function() {
 	console.log("Listening on " + PORT);

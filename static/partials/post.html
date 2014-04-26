@@ -1,37 +1,32 @@
-
 <div style="margin:0px;padding:0px" >
-<a href="/"  style="color:#c0392b;text-decoration:none"> back</a>
-				&nbsp;
-					<h6 style="display:inline-block">
-						  <span>{{post.country}}</span>  <span ng-if="post.state != 'unavailable'">.&nbsp;{{post.state}}</span>  <span ng-if="post.county">.&nbsp;{{post.county}}</span><span ng-if="post.suburb">.&nbsp;{{post.suburb}}</span> <span ng-if="post.city != 'unavailable'">.&nbsp;{{post.city}}</span>  <span ng-if="post.road != 'unavailable'">{{post.road}}.&nbsp;</span> &nbsp;&nbsp;<span>{{post.date | date:'medium'}} </span>
-						
-					</h6>
+<a href="/" style="color:#c0392b;text-decoration:none"> back</a>
+&nbsp;
+<h6 style="display:inline-block">
+<span>{{post.country}}</span> <span ng-if="post.state != 'unavailable'">.&nbsp;{{post.state}}</span> <span ng-if="post.county">.&nbsp;{{post.county}}</span><span ng-if="post.suburb">.&nbsp;{{post.suburb}}</span> <span ng-if="post.city != 'unavailable'">.&nbsp;{{post.city}}</span> <span ng-if="post.road != 'unavailable'">{{post.road}}.&nbsp;</span> &nbsp;&nbsp;<span>{{post.date | date:'medium'}} </span>
 
-					<divstyle="font-size:20px">
-						<p>
-							{{post.msg}}
-							
-						</p>
-					</div>
+</h6>
 
-					<div style="display:inline">
-						<h5 style="display:inline">
-							<i  class="fa fa-heart"></i> 
-							&nbsp;{{post.likes}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 					</h5>
+<divstyle="font-size:20px">
+<p>
+{{post.msg}}
 
-						
-	 					<h4 style="display:inline">
-		 					<a href="" class="fa fa-chevron-up" ng-click="likeMsg(1,post)" style="text-decoration:none;color:#66CC9A"></a>
-		 					&nbsp;
-		 					<a href="" class="fa fa-chevron-down" ng-click="likeMsg(2,post)" style="text-decoration:none;color:#FF5D38"></a>
-		 				</h4>
+</p>
+</div>
 
-					</div>
-				
-				
-			</div>
+<div style="display:inline">
+<h5 style="display:inline">
+<i class="fa fa-heart"></i>
+&nbsp;{{post.likes}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</h5>
 
 
+<h4 style="display:inline">
+<a href="" class="fa fa-chevron-up" ng-click="likeMsg(1,post)" style="text-decoration:none;color:#66CC9A"></a>
+&nbsp;
+<a href="" class="fa fa-chevron-down" ng-click="likeMsg(2,post)" style="text-decoration:none;color:#FF5D38"></a>
+</h4>
 
-	
+</div>
+
+
+</div>

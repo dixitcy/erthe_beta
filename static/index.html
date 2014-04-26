@@ -1,20 +1,20 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html ng-app="msgboardApp" lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
 		<script src="lib/js/angular-route.min.js"></script>
-		<script src="alt_controller.js"></script>
+		<script src="newalt_controller.js"></script>
 		<script src="js/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 		
 
-		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+		
 		<link rel="stylesheet"href="//fonts.googleapis.com/css?family=Roboto:light,regular,medium,thin,italic,mediumitalic,bold" title="roboto">
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
@@ -76,7 +76,7 @@
 			<div class="container-fluid">
 				<div class="navbar-header">
 
-					<a class="navbar-brand" href=""  ng-click="Viewposts(0)" style="color:#fff;font-family:Roboto;font-size:25px" data-toggle="modal" data-target="#myModal"><span class="label label-default" style="background-color:#222222"><i class="fa fa-globe"></i>&nbsp;&nbsp;erthe</span></a>
+					<a class="navbar-brand" href=""  ng-click="Viewposts(0)" style="color:#fff;font-family:Roboto;font-size:25px"><span class="label label-default" style="background-color:#222222"><i class="fa fa-globe"></i>&nbsp;&nbsp;erthe</span></a>
 				</div>
 
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -87,16 +87,16 @@
 					</div>
 				</form>
 				
-				<a href="" data-toggle="tooltip" data-placement="bottom" title="Search for places,streets etc">					
-				<h3 type="button" ng-click="search()"  style="outline: none;margin-top:10px"  class="navbar-btn pull-left">
+				<a type="submit" href="" data-toggle="tooltip" data-placement="bottom" title="Search for places,streets etc">					
+				<h3  ng-click="search()"  style="outline: none;margin-top:10px"  class="navbar-btn pull-left">
 					<span class="fa fa-search" style="margin:0px;color:#59ABE3">
 					
 					</span>
 				</h3>
 				</a>
 
-				<a href="" data-toggle="tooltip" data-placement="bottom" title="New hype feature here soon">					
-				<h2 type="button" ng-click="create_hype()"  style="outline: none;margin-right:50px;"  class="navbar-btn pull-right">
+				<a href="" data-toggle="tooltip" data-placement="left" title="Create a new hype in your location" type="button" ng-click="openhypemodal()">					
+				<h2 type="button"  style="outline: none;margin-right:50px;"  class="navbar-btn pull-right">
 					<span class="fa fa-map-marker" style="margin:0px;color:#e74c3c">
 					
 					</span>
@@ -128,7 +128,7 @@
 			<ul class="nav nav-pills" style="margin-top:10px;display:inline-block"  >
 					<!--<ul class="nav nav-pills nav pull-right" style="margin-top:5px"  ng-repeat="myplace in myplacesList">-->
 						<li style="clickable:true" ng-repeat="myplace in myplacesList track by $index"  data-toggle="tooltip" data-placement="left" title="View posts from {{myplace}}">
-							<a ng-click="Viewposts($index)" data-toggle="modal" data-target="#myModal" href="" style="color: #e74c3c;clickable:true;outline:none;font-size:13px">
+							<a ng-click="Viewposts($index)"  href="" style="color: #e74c3c;clickable:true;outline:none;font-size:13px">
 								<strong>
 									{{myplace}}&nbsp;<small ng-if="!$first">({{myplaceHierarchy[$index]}})</small>
 								</strong>
@@ -186,7 +186,7 @@
 		  <div class="modal-dialog container">
 			<div class="modal-content">
 			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<button type="button" class="close" data-dismiss="modal" ng-click="dismiss_modal()" aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">
 					
 						
@@ -214,7 +214,40 @@
 				<div ng-view></div>
 			  </div>
 			  <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" ng-click="dismiss_modal()" class="btn btn-default" data-dismiss="modal">Close</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+
+
+
+		<style type="text/css">
+ #hypeModal .modal-dialog  {
+  width: 800px;
+
+}
+</style>
+		<div class="modal fade" id="hypeModal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		
+		  <div class="modal-dialog container">
+			<div class="modal-content" >
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" ng-click="dismiss_modal()" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">
+					
+						
+						<h2 style="color:#36B43C;display:inline">
+							{{current_place | lowercase}}&nbsp;
+						</h2>
+						
+			  </div>
+
+			  <div class="modal-body">
+				<div ng-view></div>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" ng-click="dismiss_modal()" class="btn btn-default" data-dismiss="modal">Close</button>
 			  </div>
 			</div>
 		  </div>

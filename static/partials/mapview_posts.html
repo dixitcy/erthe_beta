@@ -1,6 +1,6 @@
 			<div ng-show="msgs.length===0"  class="container alert alert-info alert-dismissable" style="margin-top:30px;margin-bottom:20px;text-align:center;width:80%">
 				
-					<strong>Hmm, looks like no one from {{current_place | lowercase}} has posted! </strong>
+					<strong>No one from {{current_place | lowercase}} has posted............yet! </strong>
 			</div>
 		<div ng-repeat="msg in msgs | filter:postFilter" style="margin:0px;padding:0px">
 			<div>
@@ -35,7 +35,7 @@
 							<a ng-if="msg.msg.length > 100" href="/posts/{{$index}}"  style="color:#c0392b;text-decoration:none">more</a>
 						</p>
 						<p ng-switch-when="true">
-							 <a href={{msg.url}} style="color:#3498db;text-decoration:none">{{msg.msg}}</a>
+							 <a href="" style="color:#3498db;text-decoration:none" ng-click="openlink(msg.url)" >{{msg.msg}}</a>
 						</p>
 					</div>
 
@@ -62,7 +62,7 @@
 
 					</div>
 				
-					<hr>
+					<hr ng-if="!$last">
 				
 			</div>
 		</div>

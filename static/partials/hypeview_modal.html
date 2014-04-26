@@ -1,0 +1,66 @@
+
+		<div class="container" style="width:100%" ng-show="distance<2">
+			<form name="myForm" style="width:80%;display:inline" class="center-block">
+	        	<div style="margin-bottom: 10px;font-family:Roboto">
+	        		<textarea placeholder="post to {{current_place | lowercase}} " ng-model="$parent.hypemsg" class="form-control" rows="1"></textarea>
+	      		</div>
+	      	</form>
+
+	      	<a href="" class="pull-right">
+				<h2  data-toggle="tooltip" data-placement="left" title="Post random shit" type="button" ng-click="posttohype(current_place)"  style="outline: none;margin-right:30px;"  class="navbar-btn pull-right">
+					<span class="fa fa-edit" style="margin:0px;color:#2ECC71">
+					
+					</span>
+				</h2>
+			</a>
+			
+		</div>	
+			<div ng-show="msgs.length===0"  class="container alert alert-info alert-dismissable" style="margin-top:30px;margin-bottom:20px;text-align:center;width:80%">
+				
+					<strong>No one from {{current_place | lowercase}} has posted.........yet! </strong>
+			</div>		
+      	
+      
+		<div ng-repeat="msg in msgs | filter:postFilter" style="margin:10px;padding:0px">
+			<div>
+				<style type="text/css">
+
+				
+
+					.focus{
+						border-width: ;
+						border: solid;
+						border-radius: 2px;
+						border-color: #000;
+						border-spacing: 2px
+						
+					};
+				</style>
+						
+
+					<div style="font-size:20px;margin-bottom:10px">
+						<div class="panel-body">
+							<p style="margin:15px" ng-if="$even">
+								{{msg.msg}}
+								
+							</p>
+							<p style="margin:15px" ng-if="$odd" class="text-right">
+								{{msg.msg}}
+								
+							</p>
+							
+						</div>
+							
+						
+
+						
+					</div>
+					<hr ng-if="!$last">
+					
+
+					
+				
+					
+				
+			</div>
+		</div>

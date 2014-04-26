@@ -9,6 +9,50 @@ exports.index = function(req, res){
   res.render('index.html');
 };
 
+exports.posttohype = function(hypeColl){
+	return function(req, res){
+		body = req.body;
+		msg = body.msg;
+		name = body.name;
+		hypeColl.update({name : name},{ '$push': { "msgs" : {"msg" : msg}}},{},function(){
+			res.send("Inserted message!");
+		});
+	}
+}
+
+exports.sethype = function(hypeColl,hypemarkersColl){
+	return function (req, res){
+		var myarray = [];
+		body = req.body;
+		console.log("question tag  " + body.hypename);
+		name  = body.hypename; 
+		lat = body.latitude;
+		longi = body.longitude;
+		
+hypemarkersColl.update({"_id" : ObjectId("535bf89bd093cb20d5f110db")},{ '$push': { "features" : {"geometry":{"coordinates":[longi, lat],"type":"Point"},"properties":{"description":"Starbucks","id":"marker-hr6td3dup","marker-color":"7ec9b1","marker-size":"","marker-symbol":"college","name":"Spring and Varick","title":name},"type":"Feature"}}}, {}, function() {
+			
+			});
+
+		
+			msg = {
+				
+				name: name,
+				lat:lat,
+				longi:longi,
+				msgs:[
+				{
+					msg:"Hype has been created"
+				},]
+				
+			} 
+
+			hypeColl.insert(msg, {}, function() {
+				res.send("Inserted message!"); 
+			});
+		
+
+	};
+};	
 
 exports.postmessage = function(msgColl){
 	return function (req, res){
@@ -69,17 +113,6 @@ exports.postmessage = function(msgColl){
 	};
 };			
 
-exports.messages = function(msgColl){
-	return function(req, res){
-		msgColl.find({}, { sort: {likes: -1}}).toArray(function(err, items) {
-		if(err) {
-			return res.send(err);
-		}
-		console.log(items.msg);
-		res.json(items);
-	});
-};
-};
 
 exports.signup = function(usrColl){
 	return function (req, res){
@@ -151,19 +184,33 @@ exports.likeupdate = function(msgColl){
 
 exports.gethypeposts = function(hypeColl){
 	return function (req, res){
-
-	  	hypeColl.find({ "hype" : place }, { sort: {likes: -1}}).toArray(function(err, items) {
+		name = req.params.name;
+	  	hypeColl.find({ "name" : name }, { sort: {likes: -1}}).toArray(function(err, items) {
 			if(err) {
 				console.log(err);
 				return res.send('err');
 			}
-			console.log(items);
+		
 			
-			res.json(items);
+			res.send(items);
 		});		
 	}
 }
 
+exports.markers = function(hypemarkersColl){
+	return function(req, res){
+		hypemarkersColl.find().toArray(function(err, items){
+				if(err) {
+				console.log(err);
+				return res.send('err');
+			}
+		
+			console.log(items);
+			res.send(items);
+		});
+		
+	}
+}
 
 exports.getplaceposts = function(msgColl){
 	return function(req, res){

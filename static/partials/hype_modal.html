@@ -1,0 +1,45 @@
+<style type="text/css">
+ .modal-dialog {
+  width: 400px;
+
+}
+</style>
+<div class="modal-body">
+<div class="container" style="width:100%">
+
+<div>
+
+
+	<!-- show any messages that come back with authentication -->
+	
+<div class="container" style="width:100%">
+	
+
+
+	<!-- LOGIN FORM -->
+	<div>
+		<h3>Create a new 'hype'</h3>
+		<form role="form" name="form" ng-submit="login_signup(form)" novalidate>
+		 
+		  
+		  <div class="form-group">
+		    <h5 >Give a name to your hype</h5>
+		    <input type="text" class="form-control" ng-model="$parent.hypetitle" placeholder="IIT bombay,Hanuman tea shop etc" required>
+		    <h5 >Add a brief description</h5>
+		    <input type="text" class="form-control" ng-model="$parent.hypedescribe" placeholder="Hanuman tea shop,our local adda" required>
+		  </div>
+
+		  <button ng-click="makehype()" type="submit" class="btn btn-success" style="border-left-width:8px;background-color:#fff;color:#000">create</button>
+
+		</form>
+		
+	</div>
+</div>
+
+
+</div>
+	<hr>
+
+
+</div>
+</div>
