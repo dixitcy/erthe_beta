@@ -237,7 +237,9 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			}else{
 				console.log("no road");	
 			}
-			
+
+			$scope.Viewposts(0);
+			$('#myModal').modal('show');
 		});
 	}
 
