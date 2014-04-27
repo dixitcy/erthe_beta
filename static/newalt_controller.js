@@ -239,7 +239,7 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 			}
 
 			$scope.Viewposts(0);
-			$('#myModal').modal('show');
+			
 		});
 	}
 
