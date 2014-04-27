@@ -1,5 +1,5 @@
 
-		<div class="container" style="width:100%" ng-if="distance<2">
+		<div class="container" style="width:100%" ng-show="distance<2">
 			<form name="myForm" style="width:80%;display:inline" class="center-block">
 	        	<div style="margin-bottom: 10px;font-family:Roboto">
 	        		<textarea placeholder="post to {{current_place | lowercase}} " ng-model="$parent.hypemsg" class="form-control" rows="1"></textarea>
@@ -52,6 +52,7 @@
 						
 					</div>
 					</div>
+					
 					<hr ng-if="!$last">
 					
 
