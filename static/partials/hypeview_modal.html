@@ -1,5 +1,5 @@
 
-		<div class="container" style="width:100%" ng-show="distance<2">
+		<div class="container" style="width:100%" ng-if="distance<2">
 			<form name="myForm" style="width:80%;display:inline" class="center-block">
 	        	<div style="margin-bottom: 10px;font-family:Roboto">
 	        		<textarea placeholder="post to {{current_place | lowercase}} " ng-model="$parent.hypemsg" class="form-control" rows="1"></textarea>
@@ -7,7 +7,7 @@
 	      	</form>
 
 	      	<a href="" class="pull-right">
-				<h2  data-toggle="tooltip" data-placement="left" title="Post random shit" type="button" ng-click="posttohype(current_place)"  style="outline: none;margin-right:30px;"  class="navbar-btn pull-right">
+				<h2  data-toggle="tooltip" data-placement="left" title="Post random shit" type="button" ng-click="posttohype()"  style="outline: none;margin-right:30px;"  class="navbar-btn pull-right">
 					<span class="fa fa-edit" style="margin:0px;color:#2ECC71">
 					
 					</span>
@@ -38,22 +38,19 @@
 				</style>
 						
 
-					<div style="font-size:20px;margin-bottom:10px">
-						<div class="panel-body">
-							<p style="margin:15px" ng-if="$even">
-								{{msg.msg}}
-								
-							</p>
-							<p style="margin:15px" ng-if="$odd" class="text-right">
+					<div style="font-size:14px;margin-bottom:5px">
+						<div style="margin:5px;">
+							<p>
 								{{msg.msg}}
 								
 							</p>
 							
-						</div>
+						
 							
 						
 
 						
+					</div>
 					</div>
 					<hr ng-if="!$last">
 					
