@@ -2,6 +2,8 @@
 
 var lati;
 var longi;
+var mylati;
+var mylongi;
 var post_length;
 angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 
@@ -166,6 +168,8 @@ angular.module('msgboardApp', ['ngRoute','igTruncate','ui.bootstrap'])
 	function mysuccess(position) {
 		lati = position.coords.latitude;
 		longi = position.coords.longitude;
+		mylati = position.coords.latitude;
+		mylongi = position.coords.longitude;
 		 console.log("Finally here"+ lati);
 		 locationAPI.getPlaces(position.coords.latitude,position.coords.longitude).success(function(response){
 						
@@ -392,7 +396,7 @@ myLayer.on('ready', function(e) {
 		myLayer.on('click', function(e) {
 		    
 		    console.log(e.layer.feature.properties.title);
-		    hypeposts(e.layer.feature.properties.title,getDistanceFromLatLonInKm(lati,longi,e.layer.feature.geometry.coordinates[1],e.layer.feature.geometry.coordinates[0]));
+		    hypeposts(e.layer.feature.properties.title,getDistanceFromLatLonInKm(mylati,mylongi,e.layer.feature.geometry.coordinates[1],e.layer.feature.geometry.coordinates[0]));
 		    
 
 		});
