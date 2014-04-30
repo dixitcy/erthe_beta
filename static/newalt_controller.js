@@ -741,10 +741,10 @@ var hypeInstanceCtrl = function ($scope, $http, $modalInstance) {
 
 var ModalInstanceCtrl = function ($scope, $http, $modalInstance, places,msgs) {
 
-	var tagverify;
-	var tagunverify;
-	var tagpolitics;
-	var tagbreaking;
+	var tagconfession;
+	var tagquestion;
+	var tagopinion;
+	var tagnews;
 	var tagother;
   $scope.placesList = places;
   $scope.addTag = function(tag){
